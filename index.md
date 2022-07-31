@@ -1,37 +1,1868 @@
-## Welcome to GitHub Pages
+<!DOCTYPE html>
+<html>
+<script src="https://d3js.org/d3.v6.min.js"></script>
+<head>
+	<link rel="stylesheet" href="narrativeCSS.css">
+	<title>The Real Cost of Living</title>
+	<script>
+		var counter = 1;
+		function slideshowNext() {
+			switch(counter){
+				case 1:
+					document.getElementById("a").style.display = "none";
+					document.getElementById("b").style.display = "block";
+					document.getElementById("smallTitle").innerHTML = "Debt Ratios";
+					document.getElementById("blank-source").style.display = "none";
+					document.getElementById("s1").style.display = "block";
+					chartdisplay84();
+					chartLegend();
+					debtratio();
+					piechart84();
+					counter += 1;
+					break;
+				case 2:
+					document.getElementById("b").style.display = "none";
+					document.getElementById("c").style.display = "block";
+					document.getElementById("s1").style.display = "none";
+					document.getElementById("s2").style.display = "block";
+					chartdisplay90();
+					chartLegend();
+					debtratio();
+					piechart90();
+					counter += 1;
+					break;
+				case 3:
+					document.getElementById("c").style.display = "none";
+					document.getElementById("d").style.display = "block";
+					chartdisplay96();
+					chartLegend();
+					debtratio();
+					piechart96();
+					counter += 1;
+					break;
+				case 4:
+					document.getElementById("d").style.display = "none";
+					document.getElementById("e").style.display = "block";
+					chartdisplay02();
+					chartLegend();
+					debtratio();
+					piechart02();
+					counter += 1;
+					break;
+				case 5:
+					document.getElementById("e").style.display = "none";
+					document.getElementById("f").style.display = "block";
+					chartdisplay08();
+					chartLegend();
+					debtratio();
+					piechart08();
+					counter += 1;
+					break;
+				case 6:
+					document.getElementById("f").style.display = "none";
+					document.getElementById("g").style.display = "block";
+					chartdisplay14();
+					chartLegend();
+					debtratio();
+					piechart14();
+					counter += 1;
+					break;
+				case 7:
+					document.getElementById("g").style.display = "none";
+					document.getElementById("h").style.display = "block";
+					chartdisplay20();
+					chartLegend();
+					debtratio();
+					piechart20();
+					counter += 1;
+					break;
+				case 8:
+					break;
+			}
+		}
+		function slideshowBack(){
+			switch(counter){
+				case 8:
+					document.getElementById("h").style.display = "none";
+					document.getElementById("g").style.display = "block";
+					chartdisplay14();
+					chartLegend();
+					debtratio();
+					piechart14();
+					counter -= 1;
+					break;
+				case 7:
+					document.getElementById("g").style.display = "none";
+					document.getElementById("f").style.display = "block";
+					chartdisplay08();
+					chartLegend();
+					debtratio();
+					piechart08();
+					counter -= 1;
+					break;
+				case 6:
+					document.getElementById("f").style.display = "none";
+					document.getElementById("e").style.display = "block";
+					chartdisplay02();
+					chartLegend();
+					debtratio();
+					piechart02();
+					counter -= 1;
+					break;
+				case 5:
+					document.getElementById("e").style.display = "none";
+					document.getElementById("d").style.display = "block";
+					chartdisplay96();
+					chartLegend();
+					debtratio();
+					piechart96();
+					counter -= 1;
+					break;
+				case 4:
+					document.getElementById("d").style.display = "none";
+					document.getElementById("c").style.display = "block";
+					chartdisplay90();
+					chartLegend();
+					debtratio();
+					piechart90();
+					counter -= 1;
+					break;
+				case 3:
+					document.getElementById("c").style.display = "none";
+					document.getElementById("b").style.display = "block";
+					document.getElementById("s2").style.display = "none";
+					document.getElementById("s1").style.display = "block";
+					chartdisplay84();
+					chartLegend();
+					debtratio();
+					piechart84();
+					counter -= 1;
+					break;
+				case 2:
+					document.getElementById("b").style.display = "none";
+					document.getElementById("a").style.display = "block";
+					document.getElementById("smallTitle").innerHTML = "&nbsp";
+					document.getElementById("blank-source").style.display = "block";
+					document.getElementById("s1").style.display = "none";
+					d3.select("svg").selectAll("*").remove();
+					d3.select("#pie-shelf").selectAll("*").remove();
+					startingChart();
+					counter -= 1;
+					break;
+				case 1:
+					break;
+			}
+		}
+		function annotations84(){
+			var highlightDates = ["1/1/1984","1985"]
+			var highlightValues = [0,0,0]
+			var dollarValues = [53337,78200,13052]
+			
+			var axex = d3.scaleTime().domain([new Date("1-1-1984"),new Date("1-1-2020")]).range([0,525]);
+			var axey = d3.scaleLinear().domain([0,4]).range([350,0]);
+			
+			//annotation
+			d3.select("svg").append("g").attr("transform","translate(80,50)").append("text").attr("x",25).attr("y",50)
+			.attr("fill","purple").attr("dy", ".35em").text("Median Household Income: $"+dollarValues[0]);
+			
+			d3.select("svg").append("g").attr("transform","translate(80,50)").append("text").attr("x",85).attr("y",70)
+			.attr("fill","green").attr("dy", ".35em").text("Avg. House Price: $"+dollarValues[1]);
+			
+			d3.select("svg").append("g").attr("transform","translate(80,50)").append("text").attr("x",135).attr("y",90)
+			.attr("fill","yellow").attr("dy", ".35em").text("Avg. Student Debt: $"+dollarValues[2]);
+			//annotation pointers
+			d3.select("svg").append("line").style("stroke","purple")
+				.attr("transform","translate(80,50)")
+				.attr("x1",75)
+				.attr("y1",60)
+				.attr("x2",axex(new Date(highlightDates[0])))
+				.attr("y2",axey(highlightValues[0]));
+				
+			d3.select("svg").append("line").style("stroke","green")
+				.attr("transform","translate(80,50)")
+				.attr("x1",115)
+				.attr("y1",80)
+				.attr("x2",axex(new Date(highlightDates[0])))
+				.attr("y2",axey(highlightValues[1]));
+				
+			d3.select("svg").append("line").style("stroke","yellow")
+				.attr("transform","translate(80,50)")
+				.attr("x1",145)
+				.attr("y1",100)
+				.attr("x2",axex(new Date(highlightDates[1])))
+				.attr("y2",axey(highlightValues[2]));
+		}
+		function annotations90(){
+			var highlightDates = ["1/1/1990","1990"]
+			var highlightValues = [0.0814,0.5844,0.077306]
+			var dollarValues = [57677,123900,14061]
+			
+			var axex = d3.scaleTime().domain([new Date("1-1-1984"),new Date("1-1-2020")]).range([0,525]);
+			var axey = d3.scaleLinear().domain([0,4]).range([350,0]);
+			
+			//annotation
+			d3.select("svg").append("g").attr("transform","translate(80,50)").append("text").attr("x",25).attr("y",50)
+			.attr("fill","purple").attr("dy", ".35em").text("Median Household Income: $"+dollarValues[0]);
+			
+			d3.select("svg").append("g").attr("transform","translate(80,50)").append("text").attr("x",85).attr("y",70)
+			.attr("fill","green").attr("dy", ".35em").text("Avg. House Price: $"+dollarValues[1]);
+			
+			d3.select("svg").append("g").attr("transform","translate(80,50)").append("text").attr("x",135).attr("y",90)
+			.attr("fill","yellow").attr("dy", ".35em").text("Avg. Student Debt: $"+dollarValues[2]);
+			//annotation pointers
+			d3.select("svg").append("line").style("stroke","purple")
+				.attr("transform","translate(80,50)")
+				.attr("x1",75)
+				.attr("y1",60)
+				.attr("x2",axex(new Date(highlightDates[0])))
+				.attr("y2",axey(highlightValues[0]));
+				
+			d3.select("svg").append("line").style("stroke","green")
+				.attr("transform","translate(80,50)")
+				.attr("x1",115)
+				.attr("y1",80)
+				.attr("x2",axex(new Date(highlightDates[0])))
+				.attr("y2",axey(highlightValues[1]));
+				
+			d3.select("svg").append("line").style("stroke","yellow")
+				.attr("transform","translate(80,50)")
+				.attr("x1",145)
+				.attr("y1",100)
+				.attr("x2",axex(new Date(highlightDates[1])))
+				.attr("y2",axey(highlightValues[2]));
+		}
+		function annotations96(){
+			var highlightDates = ["1/1/1996","1996"]
+			var highlightValues = [0.0967,0.7519,0.680202]
+			var dollarValues = [58494,137000,21930]
+			
+			var axex = d3.scaleTime().domain([new Date("1-1-1984"),new Date("1-1-2020")]).range([0,525]);
+			var axey = d3.scaleLinear().domain([0,4]).range([350,0]);
+			
+			//annotation
+			d3.select("svg").append("g").attr("transform","translate(80,50)").append("text").attr("x",25).attr("y",50)
+			.attr("fill","purple").attr("dy", ".35em").text("Median Household Income: $"+dollarValues[0]);
+			
+			d3.select("svg").append("g").attr("transform","translate(80,50)").append("text").attr("x",85).attr("y",70)
+			.attr("fill","green").attr("dy", ".35em").text("Avg. House Price: $"+dollarValues[1]);
+			
+			d3.select("svg").append("g").attr("transform","translate(80,50)").append("text").attr("x",135).attr("y",90)
+			.attr("fill","yellow").attr("dy", ".35em").text("Avg. Student Debt: $"+dollarValues[2]);
+			//annotation pointers
+			d3.select("svg").append("line").style("stroke","purple")
+				.attr("transform","translate(80,50)")
+				.attr("x1",75)
+				.attr("y1",60)
+				.attr("x2",axex(new Date(highlightDates[0])))
+				.attr("y2",axey(highlightValues[0]));
+				
+			d3.select("svg").append("line").style("stroke","green")
+				.attr("transform","translate(80,50)")
+				.attr("x1",115)
+				.attr("y1",80)
+				.attr("x2",axex(new Date(highlightDates[0])))
+				.attr("y2",axey(highlightValues[1]));
+				
+			d3.select("svg").append("line").style("stroke","yellow")
+				.attr("transform","translate(80,50)")
+				.attr("x1",145)
+				.attr("y1",100)
+				.attr("x2",axex(new Date(highlightDates[1])))
+				.attr("y2",axey(highlightValues[2]));
+		}
+		function annotations02(){
+			var highlightDates = ["1/1/2002","2002"]
+			var highlightValues = [0.1472,1.4130,1.168633]
+			var dollarValues = [61990,188700,28305]
+			
+			var axex = d3.scaleTime().domain([new Date("1-1-1984"),new Date("1-1-2020")]).range([0,525]);
+			var axey = d3.scaleLinear().domain([0,4]).range([350,0]);
+			
+			//annotation
+			d3.select("svg").append("g").attr("transform","translate(80,50)").append("text").attr("x",25).attr("y",50)
+			.attr("fill","purple").attr("dy", ".35em").text("Median Household Income: $"+dollarValues[0]);
+			
+			d3.select("svg").append("g").attr("transform","translate(80,50)").append("text").attr("x",85).attr("y",70)
+			.attr("fill","green").attr("dy", ".35em").text("Avg. House Price: $"+dollarValues[1]);
+			
+			d3.select("svg").append("g").attr("transform","translate(80,50)").append("text").attr("x",135).attr("y",90)
+			.attr("fill","yellow").attr("dy", ".35em").text("Avg. Student Debt: $"+dollarValues[2]);
+			//annotation pointers
+			d3.select("svg").append("line").style("stroke","purple")
+				.attr("transform","translate(80,50)")
+				.attr("x1",65)
+				.attr("y1",60)
+				.attr("x2",axex(new Date(highlightDates[0])))
+				.attr("y2",axey(highlightValues[0]));
+				
+			d3.select("svg").append("line").style("stroke","green")
+				.attr("transform","translate(80,50)")
+				.attr("x1",115)
+				.attr("y1",80)
+				.attr("x2",axex(new Date(highlightDates[0])))
+				.attr("y2",axey(highlightValues[1]));
+				
+			d3.select("svg").append("line").style("stroke","yellow")
+				.attr("transform","translate(80,50)")
+				.attr("x1",155)
+				.attr("y1",100)
+				.attr("x2",axex(new Date(highlightDates[1])))
+				.attr("y2",axey(highlightValues[2]));
+		}
+		function annotations08(){
+			var highlightDates = ["1/1/2008","2008"]
+			var highlightValues = [0.1366,1.9910,1.213607]
+			var dollarValues = [60624,233900,28892]
+			
+			var axex = d3.scaleTime().domain([new Date("1-1-1984"),new Date("1-1-2020")]).range([0,525]);
+			var axey = d3.scaleLinear().domain([0,4]).range([350,0]);
+			
+			//annotation pointers
+			d3.select("svg").append("line").style("stroke","purple")
+				.attr("transform","translate(80,50)")
+				.attr("x1",55)
+				.attr("y1",60)
+				.attr("x2",axex(new Date(highlightDates[0])))
+				.attr("y2",axey(highlightValues[0]));
+				
+			d3.select("svg").append("line").style("stroke","green")
+				.attr("transform","translate(80,50)")
+				.attr("x1",195)
+				.attr("y1",80)
+				.attr("x2",axex(new Date(highlightDates[0])))
+				.attr("y2",axey(highlightValues[1]));
+				
+			d3.select("svg").append("line").style("stroke","yellow")
+				.attr("transform","translate(80,50)")
+				.attr("x1",145)
+				.attr("y1",100)
+				.attr("x2",axex(new Date(highlightDates[1])))
+				.attr("y2",axey(highlightValues[2]));
+				
+			//annotation
+			d3.select("svg").append("g").attr("transform","translate(80,50)").append("text").attr("x",25).attr("y",50)
+			.attr("fill","purple").attr("dy", ".35em").text("Median Household Income: $"+dollarValues[0]);
+			
+			d3.select("svg").append("g").attr("transform","translate(80,50)").append("text").attr("x",85).attr("y",70)
+			.attr("fill","green").attr("dy", ".35em").text("Avg. House Price: $"+dollarValues[1]);
+			
+			d3.select("svg").append("g").attr("transform","translate(80,50)").append("text").attr("x",135).attr("y",90)
+			.attr("fill","yellow").attr("dy", ".35em").text("Avg. Student Debt: $"+dollarValues[2]);
+		}
+		function annotations14(){
+			var highlightDates = ["1/1/2014","2014"]
+			var highlightValues = [0.101,2.5192,1.480463]
+			var dollarValues = [58725,275200,32375]
+			
+			var axex = d3.scaleTime().domain([new Date("1-1-1984"),new Date("1-1-2020")]).range([0,525]);
+			var axey = d3.scaleLinear().domain([0,4]).range([350,0]);
+			
+			//annotation pointers
+			d3.select("svg").append("line").style("stroke","purple")
+				.attr("transform","translate(80,50)")
+				.attr("x1",55)
+				.attr("y1",60)
+				.attr("x2",axex(new Date(highlightDates[0])))
+				.attr("y2",axey(highlightValues[0]));
+				
+			d3.select("svg").append("line").style("stroke","green")
+				.attr("transform","translate(80,50)")
+				.attr("x1",195)
+				.attr("y1",80)
+				.attr("x2",axex(new Date(highlightDates[0])))
+				.attr("y2",axey(highlightValues[1]));
+				
+			d3.select("svg").append("line").style("stroke","yellow")
+				.attr("transform","translate(80,50)")
+				.attr("x1",185)
+				.attr("y1",100)
+				.attr("x2",axex(new Date(highlightDates[1])))
+				.attr("y2",axey(highlightValues[2]));
+				
+			//annotation
+			d3.select("svg").append("g").attr("transform","translate(80,50)").append("text").attr("x",25).attr("y",50)
+			.attr("fill","purple").attr("dy", ".35em").text("Median Household Income: $"+dollarValues[0]);
+			
+			d3.select("svg").append("g").attr("transform","translate(80,50)").append("text").attr("x",85).attr("y",70)
+			.attr("fill","green").attr("dy", ".35em").text("Avg. House Price: $"+dollarValues[1]);
+			
+			d3.select("svg").append("g").attr("transform","translate(80,50)").append("text").attr("x",135).attr("y",90)
+			.attr("fill","yellow").attr("dy", ".35em").text("Avg. Student Debt: $"+dollarValues[2]);
+		}
+		function annotations20(){
+			var highlightDates = ["1/1/2020","2020"]
+			var highlightValues = [0.2659,3.2072,1.413423]
+			var dollarValues = [67521,329000,31500]
+			
+			var axex = d3.scaleTime().domain([new Date("1-1-1984"),new Date("1-1-2020")]).range([0,525]);
+			var axey = d3.scaleLinear().domain([0,4]).range([350,0]);
+			
+			//annotation
+			d3.select("svg").append("g").attr("transform","translate(80,50)").append("text").attr("x",25).attr("y",50)
+			.attr("fill","purple").attr("dy", ".35em").text("Median Household Income: $"+dollarValues[0]);
+			
+			d3.select("svg").append("g").attr("transform","translate(80,50)").append("text").attr("x",85).attr("y",70)
+			.attr("fill","green").attr("dy", ".35em").text("Avg. House Price: $"+dollarValues[1]);
+			
+			d3.select("svg").append("g").attr("transform","translate(80,50)").append("text").attr("x",135).attr("y",90)
+			.attr("fill","yellow").attr("dy", ".35em").text("Avg. Student Debt: $"+dollarValues[2]);
+			//annotation pointers
+			d3.select("svg").append("line").style("stroke","purple")
+				.attr("transform","translate(80,50)")
+				.attr("x1",45)
+				.attr("y1",60)
+				.attr("x2",axex(new Date(highlightDates[0])))
+				.attr("y2",axey(highlightValues[0]));
+				
+			d3.select("svg").append("line").style("stroke","green")
+				.attr("transform","translate(80,50)")
+				.attr("x1",285)
+				.attr("y1",70)
+				.attr("x2",axex(new Date(highlightDates[0])))
+				.attr("y2",axey(highlightValues[1]));
+				
+			d3.select("svg").append("line").style("stroke","yellow")
+				.attr("transform","translate(80,50)")
+				.attr("x1",185)
+				.attr("y1",100)
+				.attr("x2",axex(new Date(highlightDates[1])))
+				.attr("y2",axey(highlightValues[2]));
+		}
+	
+	async function highlights84(){
+		const meddata = await d3.csv("https://raw.githubusercontent.com/Joshua-T-MCS/DataVisualizationNarrative/main/medianHouseholdIncomeOverTime.csv");
+		
+		const cpidata = await d3.csv("https://raw.githubusercontent.com/Joshua-T-MCS/DataVisualizationNarrative/main/CPIovertime.csv");
+		
+		const homedata = await d3.csv("https://raw.githubusercontent.com/Joshua-T-MCS/DataVisualizationNarrative/main/HomePricesOverTime.csv");
+		
+		const collegedata = await d3.csv("https://raw.githubusercontent.com/Joshua-T-MCS/DataVisualizationNarrative/main/collegeCostsOverTime.csv");
+		
+		const studentdata = await d3.csv("https://raw.githubusercontent.com/Joshua-T-MCS/DataVisualizationNarrative/main/StudentDebtOverTime.csv");
+		var highlightDates = ["1/1/1984","1985"]
+		var highlightValues = [0,0,0]
+		
+		//income symbol
+		var crossGen = d3.symbol().type(d3.symbolCross).size(60);
+		var crossPath = crossGen();
+		//home price symbol
+		var squareGen = d3.symbol().type(d3.symbolSquare).size(60);
+		var squarePath = squareGen();
+		//college debt symbol
+		var starGen = d3.symbol().type(d3.symbolStar).size(60);
+		var starPath = starGen();
+		
+		var axex = d3.scaleTime().domain([new Date("1-1-1984"),new Date("1-1-2020")]).range([0,525]);
+		var axey = d3.scaleLinear().domain([0,4]).range([350,0]);
+		
+		//income highlight
+		d3.select("svg").append("g").attr("transform","translate(80,50)")
+		.selectAll("path").data(meddata).join("path")
+		.attr("transform",function(d){return "translate("+axex(new Date(highlightDates[0])) + "," + axey(highlightValues[0]) + ")";})
+		.attr("d", crossPath).style("fill","purple");
+		
+		//home price highlight
+		d3.select("svg").append("g").attr("transform","translate(80,50)")
+		.selectAll("path").data(homedata).join("path")
+		.attr("transform",function(d){return "translate("+axex(new Date(highlightDates[0])) + "," + axey(highlightValues[1]) + ")";})
+		.attr("d", squarePath).style("fill","green");
+		
+		//college debt highlight
+		d3.select("svg").append("g").attr("transform","translate(80,50)")
+		.selectAll("path").data(studentdata).join("path")
+		.attr("transform",function(d){return "translate("+axex(new Date(highlightDates[1])) + "," + axey(highlightValues[2]) + ")";})
+		.attr("d", starPath).style("fill","yellow");
+	}
+	async function highlights90(){
+		const meddata = await d3.csv("https://raw.githubusercontent.com/Joshua-T-MCS/DataVisualizationNarrative/main/medianHouseholdIncomeOverTime.csv");
+		
+		const cpidata = await d3.csv("https://raw.githubusercontent.com/Joshua-T-MCS/DataVisualizationNarrative/main/CPIovertime.csv");
+		
+		const homedata = await d3.csv("https://raw.githubusercontent.com/Joshua-T-MCS/DataVisualizationNarrative/main/HomePricesOverTime.csv");
+		
+		const collegedata = await d3.csv("https://raw.githubusercontent.com/Joshua-T-MCS/DataVisualizationNarrative/main/collegeCostsOverTime.csv");
+		
+		const studentdata = await d3.csv("https://raw.githubusercontent.com/Joshua-T-MCS/DataVisualizationNarrative/main/StudentDebtOverTime.csv");
+		var highlightDates = ["1/1/1990","1990"]
+		var highlightValues = [0.0814,0.5844,0.077306]
+		//income symbol
+		var crossGen = d3.symbol().type(d3.symbolCross).size(60);
+		var crossPath = crossGen();
+		//home price symbol
+		var squareGen = d3.symbol().type(d3.symbolSquare).size(60);
+		var squarePath = squareGen();
+		//college debt symbol
+		var starGen = d3.symbol().type(d3.symbolStar).size(60);
+		var starPath = starGen();
+		
+		var axex = d3.scaleTime().domain([new Date("1-1-1984"),new Date("1-1-2020")]).range([0,525]);
+		var axey = d3.scaleLinear().domain([0,4]).range([350,0]);
+		
+		//income highlight
+		d3.select("svg").append("g").attr("transform","translate(80,50)")
+		.selectAll("path").data(meddata).join("path")
+		.attr("transform",function(d){return "translate("+axex(new Date(highlightDates[0])) + "," + axey(highlightValues[0]) + ")";})
+		.attr("d", crossPath).style("fill","purple");
+		
+		//home price highlight
+		d3.select("svg").append("g").attr("transform","translate(80,50)")
+		.selectAll("path").data(homedata).join("path")
+		.attr("transform",function(d){return "translate("+axex(new Date(highlightDates[0])) + "," + axey(highlightValues[1]) + ")";})
+		.attr("d", squarePath).style("fill","green");
+		
+		//college debt highlight
+		d3.select("svg").append("g").attr("transform","translate(80,50)")
+		.selectAll("path").data(studentdata).join("path")
+		.attr("transform",function(d){return "translate("+axex(new Date(highlightDates[1])) + "," + axey(highlightValues[2]) + ")";})
+		.attr("d", starPath).style("fill","yellow");
+	}
+	async function highlights96(){
+		const meddata = await d3.csv("https://raw.githubusercontent.com/Joshua-T-MCS/DataVisualizationNarrative/main/medianHouseholdIncomeOverTime.csv");
+		
+		const cpidata = await d3.csv("https://raw.githubusercontent.com/Joshua-T-MCS/DataVisualizationNarrative/main/CPIovertime.csv");
+		
+		const homedata = await d3.csv("https://raw.githubusercontent.com/Joshua-T-MCS/DataVisualizationNarrative/main/HomePricesOverTime.csv");
+		
+		const collegedata = await d3.csv("https://raw.githubusercontent.com/Joshua-T-MCS/DataVisualizationNarrative/main/collegeCostsOverTime.csv");
+		
+		const studentdata = await d3.csv("https://raw.githubusercontent.com/Joshua-T-MCS/DataVisualizationNarrative/main/StudentDebtOverTime.csv");
+		var highlightDates = ["1/1/1996","1996"]
+		var highlightValues = [0.0967,0.7519,0.680202]
+		//income symbol
+		var crossGen = d3.symbol().type(d3.symbolCross).size(60);
+		var crossPath = crossGen();
+		//home price symbol
+		var squareGen = d3.symbol().type(d3.symbolSquare).size(60);
+		var squarePath = squareGen();
+		//college debt symbol
+		var starGen = d3.symbol().type(d3.symbolStar).size(60);
+		var starPath = starGen();
+		
+		var axex = d3.scaleTime().domain([new Date("1-1-1984"),new Date("1-1-2020")]).range([0,525]);
+		var axey = d3.scaleLinear().domain([0,4]).range([350,0]);
+		
+		//income highlight
+		d3.select("svg").append("g").attr("transform","translate(80,50)")
+		.selectAll("path").data(meddata).join("path")
+		.attr("transform",function(d){return "translate("+axex(new Date(highlightDates[0])) + "," + axey(highlightValues[0]) + ")";})
+		.attr("d", crossPath).style("fill","purple");
+		
+		//home price highlight
+		d3.select("svg").append("g").attr("transform","translate(80,50)")
+		.selectAll("path").data(homedata).join("path")
+		.attr("transform",function(d){return "translate("+axex(new Date(highlightDates[0])) + "," + axey(highlightValues[1]) + ")";})
+		.attr("d", squarePath).style("fill","green");
+		
+		//college debt highlight
+		d3.select("svg").append("g").attr("transform","translate(80,50)")
+		.selectAll("path").data(studentdata).join("path")
+		.attr("transform",function(d){return "translate("+axex(new Date(highlightDates[1])) + "," + axey(highlightValues[2]) + ")";})
+		.attr("d", starPath).style("fill","yellow");
+	}
+	async function highlights02(){
+		const meddata = await d3.csv("https://raw.githubusercontent.com/Joshua-T-MCS/DataVisualizationNarrative/main/medianHouseholdIncomeOverTime.csv");
+		
+		const cpidata = await d3.csv("https://raw.githubusercontent.com/Joshua-T-MCS/DataVisualizationNarrative/main/CPIovertime.csv");
+		
+		const homedata = await d3.csv("https://raw.githubusercontent.com/Joshua-T-MCS/DataVisualizationNarrative/main/HomePricesOverTime.csv");
+		
+		const collegedata = await d3.csv("https://raw.githubusercontent.com/Joshua-T-MCS/DataVisualizationNarrative/main/collegeCostsOverTime.csv");
+		
+		const studentdata = await d3.csv("https://raw.githubusercontent.com/Joshua-T-MCS/DataVisualizationNarrative/main/StudentDebtOverTime.csv");
+		var highlightDates = ["1/1/2002","2002"]
+		var highlightValues = [0.1472,1.4130,1.168633]
+		//income symbol
+		var crossGen = d3.symbol().type(d3.symbolCross).size(60);
+		var crossPath = crossGen();
+		//home price symbol
+		var squareGen = d3.symbol().type(d3.symbolSquare).size(60);
+		var squarePath = squareGen();
+		//college debt symbol
+		var starGen = d3.symbol().type(d3.symbolStar).size(60);
+		var starPath = starGen();
+		
+		var axex = d3.scaleTime().domain([new Date("1-1-1984"),new Date("1-1-2020")]).range([0,525]);
+		var axey = d3.scaleLinear().domain([0,4]).range([350,0]);
+		
+		//income highlight
+		d3.select("svg").append("g").attr("transform","translate(80,50)")
+		.selectAll("path").data(meddata).join("path")
+		.attr("transform",function(d){return "translate("+axex(new Date(highlightDates[0])) + "," + axey(highlightValues[0]) + ")";})
+		.attr("d", crossPath).style("fill","purple");
+		
+		//home price highlight
+		d3.select("svg").append("g").attr("transform","translate(80,50)")
+		.selectAll("path").data(homedata).join("path")
+		.attr("transform",function(d){return "translate("+axex(new Date(highlightDates[0])) + "," + axey(highlightValues[1]) + ")";})
+		.attr("d", squarePath).style("fill","green");
+		
+		//college debt highlight
+		d3.select("svg").append("g").attr("transform","translate(80,50)")
+		.selectAll("path").data(studentdata).join("path")
+		.attr("transform",function(d){return "translate("+axex(new Date(highlightDates[1])) + "," + axey(highlightValues[2]) + ")";})
+		.attr("d", starPath).style("fill","yellow");
+	}
+	async function highlights08(){
+		const meddata = await d3.csv("https://raw.githubusercontent.com/Joshua-T-MCS/DataVisualizationNarrative/main/medianHouseholdIncomeOverTime.csv");
+		
+		const cpidata = await d3.csv("https://raw.githubusercontent.com/Joshua-T-MCS/DataVisualizationNarrative/main/CPIovertime.csv");
+		
+		const homedata = await d3.csv("https://raw.githubusercontent.com/Joshua-T-MCS/DataVisualizationNarrative/main/HomePricesOverTime.csv");
+		
+		const collegedata = await d3.csv("https://raw.githubusercontent.com/Joshua-T-MCS/DataVisualizationNarrative/main/collegeCostsOverTime.csv");
+		
+		const studentdata = await d3.csv("https://raw.githubusercontent.com/Joshua-T-MCS/DataVisualizationNarrative/main/StudentDebtOverTime.csv");
+		var highlightDates = ["1/1/2008","2008"]
+		var highlightValues = [0.1366,1.9910,1.213607]
+		//income symbol
+		var crossGen = d3.symbol().type(d3.symbolCross).size(60);
+		var crossPath = crossGen();
+		//home price symbol
+		var squareGen = d3.symbol().type(d3.symbolSquare).size(60);
+		var squarePath = squareGen();
+		//college debt symbol
+		var starGen = d3.symbol().type(d3.symbolStar).size(60);
+		var starPath = starGen();
+		
+		var axex = d3.scaleTime().domain([new Date("1-1-1984"),new Date("1-1-2020")]).range([0,525]);
+		var axey = d3.scaleLinear().domain([0,4]).range([350,0]);
+		
+		//income highlight
+		d3.select("svg").append("g").attr("transform","translate(80,50)")
+		.selectAll("path").data(meddata).join("path")
+		.attr("transform",function(d){return "translate("+axex(new Date(highlightDates[0])) + "," + axey(highlightValues[0]) + ")";})
+		.attr("d", crossPath).style("fill","purple");
+		
+		//home price highlight
+		d3.select("svg").append("g").attr("transform","translate(80,50)")
+		.selectAll("path").data(homedata).join("path")
+		.attr("transform",function(d){return "translate("+axex(new Date(highlightDates[0])) + "," + axey(highlightValues[1]) + ")";})
+		.attr("d", squarePath).style("fill","green");
+		
+		//college debt highlight
+		d3.select("svg").append("g").attr("transform","translate(80,50)")
+		.selectAll("path").data(studentdata).join("path")
+		.attr("transform",function(d){return "translate("+axex(new Date(highlightDates[1])) + "," + axey(highlightValues[2]) + ")";})
+		.attr("d", starPath).style("fill","yellow");
+	}
+	async function highlights14(){
+		const meddata = await d3.csv("https://raw.githubusercontent.com/Joshua-T-MCS/DataVisualizationNarrative/main/medianHouseholdIncomeOverTime.csv");
+		
+		const cpidata = await d3.csv("https://raw.githubusercontent.com/Joshua-T-MCS/DataVisualizationNarrative/main/CPIovertime.csv");
+		
+		const homedata = await d3.csv("https://raw.githubusercontent.com/Joshua-T-MCS/DataVisualizationNarrative/main/HomePricesOverTime.csv");
+		
+		const collegedata = await d3.csv("https://raw.githubusercontent.com/Joshua-T-MCS/DataVisualizationNarrative/main/collegeCostsOverTime.csv");
+		
+		const studentdata = await d3.csv("https://raw.githubusercontent.com/Joshua-T-MCS/DataVisualizationNarrative/main/StudentDebtOverTime.csv");
+		var highlightDates = ["1/1/2014","2014"]
+		var highlightValues = [0.101,2.5192,1.480463]
+		//income symbol
+		var crossGen = d3.symbol().type(d3.symbolCross).size(60);
+		var crossPath = crossGen();
+		//home price symbol
+		var squareGen = d3.symbol().type(d3.symbolSquare).size(60);
+		var squarePath = squareGen();
+		//college debt symbol
+		var starGen = d3.symbol().type(d3.symbolStar).size(60);
+		var starPath = starGen();
+		
+		var axex = d3.scaleTime().domain([new Date("1-1-1984"),new Date("1-1-2020")]).range([0,525]);
+		var axey = d3.scaleLinear().domain([0,4]).range([350,0]);
+		
+		//income highlight
+		d3.select("svg").append("g").attr("transform","translate(80,50)")
+		.selectAll("path").data(meddata).join("path")
+		.attr("transform",function(d){return "translate("+axex(new Date(highlightDates[0])) + "," + axey(highlightValues[0]) + ")";})
+		.attr("d", crossPath).style("fill","purple");
+		
+		//home price highlight
+		d3.select("svg").append("g").attr("transform","translate(80,50)")
+		.selectAll("path").data(homedata).join("path")
+		.attr("transform",function(d){return "translate("+axex(new Date(highlightDates[0])) + "," + axey(highlightValues[1]) + ")";})
+		.attr("d", squarePath).style("fill","green");
+		
+		//college debt highlight
+		d3.select("svg").append("g").attr("transform","translate(80,50)")
+		.selectAll("path").data(studentdata).join("path")
+		.attr("transform",function(d){return "translate("+axex(new Date(highlightDates[1])) + "," + axey(highlightValues[2]) + ")";})
+		.attr("d", starPath).style("fill","yellow");
+	}
+	async function highlights20(){
+		const meddata = await d3.csv("https://raw.githubusercontent.com/Joshua-T-MCS/DataVisualizationNarrative/main/medianHouseholdIncomeOverTime.csv");
+		
+		const cpidata = await d3.csv("https://raw.githubusercontent.com/Joshua-T-MCS/DataVisualizationNarrative/main/CPIovertime.csv");
+		
+		const homedata = await d3.csv("https://raw.githubusercontent.com/Joshua-T-MCS/DataVisualizationNarrative/main/HomePricesOverTime.csv");
+		
+		const collegedata = await d3.csv("https://raw.githubusercontent.com/Joshua-T-MCS/DataVisualizationNarrative/main/collegeCostsOverTime.csv");
+		
+		const studentdata = await d3.csv("https://raw.githubusercontent.com/Joshua-T-MCS/DataVisualizationNarrative/main/StudentDebtOverTime.csv");
+		var highlightDates = ["1/1/2020","2020"]
+		var highlightValues = [0.2659,3.2072,1.413423]
+		//income symbol
+		var crossGen = d3.symbol().type(d3.symbolCross).size(60);
+		var crossPath = crossGen();
+		//home price symbol
+		var squareGen = d3.symbol().type(d3.symbolSquare).size(60);
+		var squarePath = squareGen();
+		//college debt symbol
+		var starGen = d3.symbol().type(d3.symbolStar).size(60);
+		var starPath = starGen();
+		
+		var axex = d3.scaleTime().domain([new Date("1-1-1984"),new Date("1-1-2020")]).range([0,525]);
+		var axey = d3.scaleLinear().domain([0,4]).range([350,0]);
+		
+		//income highlight
+		d3.select("svg").append("g").attr("transform","translate(80,50)")
+		.selectAll("path").data(meddata).join("path")
+		.attr("transform",function(d){return "translate("+axex(new Date(highlightDates[0])) + "," + axey(highlightValues[0]) + ")";})
+		.attr("d", crossPath).style("fill","purple");
+		
+		//home price highlight
+		d3.select("svg").append("g").attr("transform","translate(80,50)")
+		.selectAll("path").data(homedata).join("path")
+		.attr("transform",function(d){return "translate("+axex(new Date(highlightDates[0])) + "," + axey(highlightValues[1]) + ")";})
+		.attr("d", squarePath).style("fill","green");
+		
+		//college debt highlight
+		d3.select("svg").append("g").attr("transform","translate(80,50)")
+		.selectAll("path").data(studentdata).join("path")
+		.attr("transform",function(d){return "translate("+axex(new Date(highlightDates[1])) + "," + axey(highlightValues[2]) + ")";})
+		.attr("d", starPath).style("fill","yellow");
+	}
+	
+	async function chartdisplay84(){
+		d3.select("svg").selectAll("*").remove();
+		const meddata = await d3.csv("https://raw.githubusercontent.com/Joshua-T-MCS/DataVisualizationNarrative/main/medianHouseholdIncomeOverTime.csv");
+		
+		const cpidata = await d3.csv("https://raw.githubusercontent.com/Joshua-T-MCS/DataVisualizationNarrative/main/CPIovertime.csv");
+		
+		const homedata = await d3.csv("https://raw.githubusercontent.com/Joshua-T-MCS/DataVisualizationNarrative/main/HomePricesOverTime.csv");
+		
+		const collegedata = await d3.csv("https://raw.githubusercontent.com/Joshua-T-MCS/DataVisualizationNarrative/main/collegeCostsOverTime.csv");
+		
+		const studentdata = await d3.csv("https://raw.githubusercontent.com/Joshua-T-MCS/DataVisualizationNarrative/main/StudentDebtOverTime.csv");
+		
+		var axex = d3.scaleTime().domain([new Date("1-1-1984"),new Date("1-1-2020")]).range([0,525]);
+		var axey = d3.scaleLinear().domain([0,4]).range([350,0]);
+		
+		d3.select("svg").append("g").attr("transform","translate(80,50)")
+		.call(d3.axisLeft(axey).ticks(9).tickFormat(function(d){return d*100+"%";}));
+		
+		d3.select("svg").append("g").attr("transform","translate(80,400)")
+		.call(d3.axisBottom(axex));
+		
+		d3.select("svg").append("g").attr("transform","translate(80,50)").attr("class", "incNinety")
+		.selectAll("circle").data(meddata).enter().append("circle")
+		.attr("cx",function (d){return axex(new Date(d.DATE));})
+		.attr("cy",function (d){return axey(d.EIGHTYFOUR);})
+		.attr("r",function(d){return d.EIGHTYFOUR == ""?0:1;})
+		.style("fill","purple");
+		
+		highlights84();
+		annotations84();
+		
+		for (var i=1; i<1; i++){
+			d3.select("svg").append("line").style("stroke","purple")
+			.attr("transform","translate(80,50)")
+			.attr("x1",axex(new Date(meddata[i-1].DATE)))
+			.attr("y1",axey(meddata[i-1].EIGHTYFOUR))
+			.attr("x2",axex(new Date(meddata[i].DATE)))
+			.attr("y2",axey(meddata[i].EIGHTYFOUR));
+		};
+		
+		d3.select("svg").append("g").attr("transform","translate(80,50)")
+		.selectAll("circle").data(cpidata).enter().append("circle")
+		.attr("cx",function (d){return axex(new Date(d.DATE));})
+		.attr("cy",function (d){return axey(d.EIGHTYFOUR);})
+		.attr("r",function(d){return d.EIGHTYFOUR == ""?0:1;})
+		.style("fill","blue")
+		.style("display", function(d) {return d.EIGHTYFOUR == ""?"none":null;});
+		
+		for (var i=1; i<12; i++){
+			d3.select("svg").append("line").style("stroke","blue")
+			.attr("transform","translate(80,50)")
+			.attr("x1",axex(new Date(cpidata[i-1].DATE)))
+			.attr("y1",axey(cpidata[i-1].EIGHTYFOUR))
+			.attr("x2",axex(new Date(cpidata[i].DATE)))
+			.attr("y2",axey(cpidata[i].EIGHTYFOUR));
+		};
+		
+		d3.select("svg").append("g").attr("transform","translate(80,50)")
+		.selectAll("circle").data(homedata).enter().append("circle")
+		.attr("cx",function (d){return axex(new Date(d.DATE));})
+		.attr("cy",function (d){return axey(d.EIGHTYFOUR);})
+		.attr("r",function(d){return d.EIGHTYFOUR == ""?0:1;})
+		.style("fill","green")
+		.style("display", function(d) {return d.EIGHTYFOUR == ""?"none":null;});
+		
+		for (var i=1; i<4; i++){
+			d3.select("svg").append("line").style("stroke","green")
+			.attr("transform","translate(80,50)")
+			.attr("x1",axex(new Date(homedata[i-1].DATE)))
+			.attr("y1",axey(homedata[i-1].EIGHTYFOUR))
+			.attr("x2",axex(new Date(homedata[i].DATE)))
+			.attr("y2",axey(homedata[i].EIGHTYFOUR));
+		};
+		
+		d3.select("svg").append("g").attr("transform","translate(80,50)")
+		.selectAll("circle").data(collegedata).enter().append("circle")
+		.attr("cx",function (d){return axex(new Date(d.YEAR));})
+		.attr("cy",function (d){return axey(d.EIGHTYFOUR);})
+		.attr("r",function(d){return d.EIGHTYFOUR == ""?0:1;})
+		.style("fill","black")
+		.style("display", function(d) {return d.EIGHTYFOUR == ""?"none":null;});
+		
+		for (var i=1; i<1; i++){
+			d3.select("svg").append("line").style("stroke","black")
+			.attr("transform","translate(80,50)")
+			.attr("x1",axex(new Date(collegedata[i-1].YEAR)))
+			.attr("y1",axey(collegedata[i-1].EIGHTYFOUR))
+			.attr("x2",axex(new Date(collegedata[i].YEAR)))
+			.attr("y2",axey(collegedata[i].EIGHTYFOUR));
+		};
+		
+		d3.select("svg").append("g").attr("transform","translate(80,50)")
+		.selectAll("circle").data(studentdata).enter().append("circle")
+		.attr("cx",function (d){return axex(new Date(d.YEAR));})
+		.attr("cy",function (d){return axey(d.EIGHTYFOUR);})
+		.attr("r",function(d){return d.EIGHTYFOUR == ""?0:1;})
+		.style("fill","yellow")
+		.style("display", function(d) {return d.EIGHTYFOUR == ""?"none":null;});
+		
+		for (var i=1; i<1; i++){
+			d3.select("svg").append("line").style("stroke","yellow")
+			.attr("transform","translate(80,50)")
+			.attr("x1",axex(new Date(studentdata[i-1].YEAR)))
+			.attr("y1",axey(studentdata[i-1].EIGHTYFOUR))
+			.attr("x2",axex(new Date(studentdata[i].YEAR)))
+			.attr("y2",axey(studentdata[i].EIGHTYFOUR));
+		};
+		
+	}
+	async function chartdisplay90(){
+		d3.select("svg").selectAll("*").remove();
+		const meddata = await d3.csv("https://raw.githubusercontent.com/Joshua-T-MCS/DataVisualizationNarrative/main/medianHouseholdIncomeOverTime.csv");
+		
+		const cpidata = await d3.csv("https://raw.githubusercontent.com/Joshua-T-MCS/DataVisualizationNarrative/main/CPIovertime.csv");
+		
+		const homedata = await d3.csv("https://raw.githubusercontent.com/Joshua-T-MCS/DataVisualizationNarrative/main/HomePricesOverTime.csv");
+		
+		const collegedata = await d3.csv("https://raw.githubusercontent.com/Joshua-T-MCS/DataVisualizationNarrative/main/collegeCostsOverTime.csv");
+		
+		const studentdata = await d3.csv("https://raw.githubusercontent.com/Joshua-T-MCS/DataVisualizationNarrative/main/StudentDebtOverTime.csv");
+		
+		var axex = d3.scaleTime().domain([new Date("1-1-1984"),new Date("1-1-2020")]).range([0,525]);
+		var axey = d3.scaleLinear().domain([0,4]).range([350,0]);
+				
+		d3.select("svg").append("g").attr("transform","translate(80,50)")
+		.call(d3.axisLeft(axey).ticks(9).tickFormat(function(d){return d*100+"%";}));
+		
+		d3.select("svg").append("g").attr("transform","translate(80,400)")
+		.call(d3.axisBottom(axex));
+		
+		d3.select("svg").append("g").attr("transform","translate(80,50)").attr("class", "incNinety")
+		.selectAll("circle").data(meddata).enter().append("circle")
+		.attr("cx",function (d){return axex(new Date(d.DATE));})
+		.attr("cy",function (d){return axey(d.NINETY);})
+		.attr("r",function(d){return d.NINETY == ""?0:1;})
+		.style("fill","purple");
+		
+		highlights84();
+		highlights90();
+		annotations90();
+		
+		for (var i=1; i<7; i++){
+			d3.select("svg").append("line").style("stroke","purple")
+			.attr("transform","translate(80,50)")
+			.attr("x1",axex(new Date(meddata[i-1].DATE)))
+			.attr("y1",axey(meddata[i-1].NINETY))
+			.attr("x2",axex(new Date(meddata[i].DATE)))
+			.attr("y2",axey(meddata[i].NINETY));
+		};
+		
+		d3.select("svg").append("g").attr("transform","translate(80,50)")
+		.selectAll("circle").data(cpidata).enter().append("circle")
+		.attr("cx",function (d){return axex(new Date(d.DATE));})
+		.attr("cy",function (d){return axey(d.NINETY);})
+		.attr("r",function(d){return d.NINETY == ""?0:0;})
+		.style("fill","blue")
+		.style("display", function(d) {return d.NINETY == ""?"none":null;});
+		
+		for (var i=1; i<84; i++){
+			d3.select("svg").append("line").style("stroke","blue")
+			.attr("transform","translate(80,50)")
+			.attr("x1",axex(new Date(cpidata[i-1].DATE)))
+			.attr("y1",axey(cpidata[i-1].NINETY))
+			.attr("x2",axex(new Date(cpidata[i].DATE)))
+			.attr("y2",axey(cpidata[i].NINETY));
+		};
+		
+		d3.select("svg").append("g").attr("transform","translate(80,50)")
+		.selectAll("circle").data(homedata).enter().append("circle")
+		.attr("cx",function (d){return axex(new Date(d.DATE));})
+		.attr("cy",function (d){return axey(d.NINETY);})
+		.attr("r",function(d){return d.NINETY == ""?0:1;})
+		.style("fill","green")
+		.style("display", function(d) {return d.NINETY == ""?"none":null;});
+		
+		for (var i=1; i<28; i++){
+			d3.select("svg").append("line").style("stroke","green")
+			.attr("transform","translate(80,50)")
+			.attr("x1",axex(new Date(homedata[i-1].DATE)))
+			.attr("y1",axey(homedata[i-1].NINETY))
+			.attr("x2",axex(new Date(homedata[i].DATE)))
+			.attr("y2",axey(homedata[i].NINETY));
+		};
+		
+		d3.select("svg").append("g").attr("transform","translate(80,50)")
+		.selectAll("circle").data(collegedata).enter().append("circle")
+		.attr("cx",function (d){return axex(new Date(d.YEAR));})
+		.attr("cy",function (d){return axey(d.NINETY);})
+		.attr("r",function(d){return d.NINETY == ""?0:1;})
+		.style("fill","black")
+		.style("display", function(d) {return d.NINETY == ""?"none":null;});
+		
+		for (var i=1; i<7; i++){
+			d3.select("svg").append("line").style("stroke","black")
+			.attr("transform","translate(80,50)")
+			.attr("x1",axex(new Date(collegedata[i-1].YEAR)))
+			.attr("y1",axey(collegedata[i-1].NINETY))
+			.attr("x2",axex(new Date(collegedata[i].YEAR)))
+			.attr("y2",axey(collegedata[i].NINETY));
+		};
+		
+		d3.select("svg").append("g").attr("transform","translate(80,50)")
+		.selectAll("circle").data(studentdata).enter().append("circle")
+		.attr("cx",function (d){return axex(new Date(d.YEAR));})
+		.attr("cy",function (d){return axey(d.NINETY);})
+		.attr("r",function(d){return d.NINETY == ""?0:1;})
+		.style("fill","yellow")
+		.style("display", function(d) {return d.NINETY == ""?"none":null;});
+		
+		for (var i=1; i<2; i++){
+			d3.select("svg").append("line").style("stroke","yellow")
+			.attr("transform","translate(80,50)")
+			.attr("x1",axex(new Date(studentdata[i-1].YEAR)))
+			.attr("y1",axey(studentdata[i-1].NINETY))
+			.attr("x2",axex(new Date(studentdata[i].YEAR)))
+			.attr("y2",axey(studentdata[i].NINETY));
+		};
+	}
+	async function chartdisplay96(){
+		d3.select("svg").selectAll("*").remove();
+		const meddata = await d3.csv("https://raw.githubusercontent.com/Joshua-T-MCS/DataVisualizationNarrative/main/medianHouseholdIncomeOverTime.csv");
+		
+		const cpidata = await d3.csv("https://raw.githubusercontent.com/Joshua-T-MCS/DataVisualizationNarrative/main/CPIovertime.csv");
+		
+		const homedata = await d3.csv("https://raw.githubusercontent.com/Joshua-T-MCS/DataVisualizationNarrative/main/HomePricesOverTime.csv");
+		
+		const collegedata = await d3.csv("https://raw.githubusercontent.com/Joshua-T-MCS/DataVisualizationNarrative/main/collegeCostsOverTime.csv");
+		
+		const studentdata = await d3.csv("https://raw.githubusercontent.com/Joshua-T-MCS/DataVisualizationNarrative/main/StudentDebtOverTime.csv");
+		
+		var axex = d3.scaleTime().domain([new Date("1-1-1984"),new Date("1-1-2020")]).range([0,525]);
+		var axey = d3.scaleLinear().domain([0,4]).range([350,0]);
+		
+		d3.select("svg").append("g").attr("transform","translate(80,50)")
+		.call(d3.axisLeft(axey).ticks(9).tickFormat(function(d){return d*100+"%";}));
+		
+		d3.select("svg").append("g").attr("transform","translate(80,400)")
+		.call(d3.axisBottom(axex));
+		
+		d3.select("svg").append("g").attr("transform","translate(80,50)")
+		.selectAll("circle").data(meddata).enter().append("circle")
+		.attr("cx",function (d){return axex(new Date(d.DATE));})
+		.attr("cy",function (d){return axey(d.NINETYSIX);})
+		.attr("r",function(d){return d.NINETYSIX == ""?0:1;})
+		.style("fill","purple");
+		
+		highlights84();
+		highlights90();
+		highlights96();
+		annotations96();
+		
+		for (var i=1; i<13; i++){
+			d3.select("svg").append("line").style("stroke","purple")
+			.attr("transform","translate(80,50)")
+			.attr("x1",axex(new Date(meddata[i-1].DATE)))
+			.attr("y1",axey(meddata[i-1].NINETYSIX))
+			.attr("x2",axex(new Date(meddata[i].DATE)))
+			.attr("y2",axey(meddata[i].NINETYSIX));
+		};
+		
+		d3.select("svg").append("g").attr("transform","translate(80,50)")
+		.selectAll("circle").data(cpidata).enter().append("circle")
+		.attr("cx",function (d){return axex(new Date(d.DATE));})
+		.attr("cy",function (d){return axey(d.NINETYSIX);})
+		.attr("r",function(d){return d.NINETYSIX == ""?0:0;})
+		.style("fill","blue")
+		.style("display", function(d) {return d.NINETYSIX == ""?"none":null;});
+		
+		for (var i=1; i<156; i++){
+			d3.select("svg").append("line").style("stroke","blue")
+			.attr("transform","translate(80,50)")
+			.attr("x1",axex(new Date(cpidata[i-1].DATE)))
+			.attr("y1",axey(cpidata[i-1].NINETYSIX))
+			.attr("x2",axex(new Date(cpidata[i].DATE)))
+			.attr("y2",axey(cpidata[i].NINETYSIX));
+		};
+		
+		d3.select("svg").append("g").attr("transform","translate(80,50)")
+		.selectAll("circle").data(homedata).enter().append("circle")
+		.attr("cx",function (d){return axex(new Date(d.DATE));})
+		.attr("cy",function (d){return axey(d.NINETYSIX);})
+		.attr("r",function(d){return d.NINETYSIX == ""?0:1;})
+		.style("fill","green")
+		.style("display", function(d) {return d.NINETYSIX == ""?"none":null;});
+		
+		for (var i=1; i<52; i++){
+			d3.select("svg").append("line").style("stroke","green")
+			.attr("transform","translate(80,50)")
+			.attr("x1",axex(new Date(homedata[i-1].DATE)))
+			.attr("y1",axey(homedata[i-1].NINETYSIX))
+			.attr("x2",axex(new Date(homedata[i].DATE)))
+			.attr("y2",axey(homedata[i].NINETYSIX));
+		};
+		
+		d3.select("svg").append("g").attr("transform","translate(80,50)")
+		.selectAll("circle").data(collegedata).enter().append("circle")
+		.attr("cx",function (d){return axex(new Date(d.YEAR));})
+		.attr("cy",function (d){return axey(d.NINETYSIX);})
+		.attr("r",function(d){return d.NINETYSIX == ""?0:1;})
+		.style("fill","black")
+		.style("display", function(d) {return d.NINETYSIX == ""?"none":null;});
+		
+		for (var i=1; i<13; i++){
+			d3.select("svg").append("line").style("stroke","black")
+			.attr("transform","translate(80,50)")
+			.attr("x1",axex(new Date(collegedata[i-1].YEAR)))
+			.attr("y1",axey(collegedata[i-1].NINETYSIX))
+			.attr("x2",axex(new Date(collegedata[i].YEAR)))
+			.attr("y2",axey(collegedata[i].NINETYSIX));
+		};
+		
+		d3.select("svg").append("g").attr("transform","translate(80,50)")
+		.selectAll("circle").data(studentdata).enter().append("circle")
+		.attr("cx",function (d){return axex(new Date(d.YEAR));})
+		.attr("cy",function (d){return axey(d.NINETYSIX);})
+		.attr("r",function(d){return d.NINETYSIX == ""?0:1;})
+		.style("fill","yellow")
+		.style("display", function(d) {return d.NINETYSIX == ""?"none":null;});
+		
+		for (var i=1; i<4; i++){
+			d3.select("svg").append("line").style("stroke","yellow")
+			.attr("transform","translate(80,50)")
+			.attr("x1",axex(new Date(studentdata[i-1].YEAR)))
+			.attr("y1",axey(studentdata[i-1].NINETYSIX))
+			.attr("x2",axex(new Date(studentdata[i].YEAR)))
+			.attr("y2",axey(studentdata[i].NINETYSIX));
+		};
+	}
+	async function chartdisplay02(){
+		d3.select("svg").selectAll("*").remove();
+		const meddata = await d3.csv("https://raw.githubusercontent.com/Joshua-T-MCS/DataVisualizationNarrative/main/medianHouseholdIncomeOverTime.csv");
+		
+		const cpidata = await d3.csv("https://raw.githubusercontent.com/Joshua-T-MCS/DataVisualizationNarrative/main/CPIovertime.csv");
+		
+		const homedata = await d3.csv("https://raw.githubusercontent.com/Joshua-T-MCS/DataVisualizationNarrative/main/HomePricesOverTime.csv");
+		
+		const collegedata = await d3.csv("https://raw.githubusercontent.com/Joshua-T-MCS/DataVisualizationNarrative/main/collegeCostsOverTime.csv");
+		
+		const studentdata = await d3.csv("https://raw.githubusercontent.com/Joshua-T-MCS/DataVisualizationNarrative/main/StudentDebtOverTime.csv");
+		
+		var axex = d3.scaleTime().domain([new Date("1-1-1984"),new Date("1-1-2020")]).range([0,525]);
+		var axey = d3.scaleLinear().domain([0,4]).range([350,0]);
+		
+		d3.select("svg").append("g").attr("transform","translate(80,50)")
+		.call(d3.axisLeft(axey).ticks(9).tickFormat(function(d){return d*100+"%";}));
+		
+		d3.select("svg").append("g").attr("transform","translate(80,400)")
+		.call(d3.axisBottom(axex));
+		
+		d3.select("svg").append("g").attr("transform","translate(80,50)")
+		.selectAll("circle").data(meddata).enter().append("circle")
+		.attr("cx",function (d){return axex(new Date(d.DATE));})
+		.attr("cy",function (d){return axey(d.ZEROTWO);})
+		.attr("r",function(d){return d.ZEROTWO == ""?0:1;})
+		.style("fill","purple");
+		
+		highlights84();
+		highlights90();
+		highlights96();
+		highlights02();
+		annotations02();
+		
+		for (var i=1; i<19; i++){
+			d3.select("svg").append("line").style("stroke","purple")
+			.attr("transform","translate(80,50)")
+			.attr("x1",axex(new Date(meddata[i-1].DATE)))
+			.attr("y1",axey(meddata[i-1].ZEROTWO))
+			.attr("x2",axex(new Date(meddata[i].DATE)))
+			.attr("y2",axey(meddata[i].ZEROTWO));
+		};
+		
+		d3.select("svg").append("g").attr("transform","translate(80,50)")
+		.selectAll("circle").data(cpidata).enter().append("circle")
+		.attr("cx",function (d){return axex(new Date(d.DATE));})
+		.attr("cy",function (d){return axey(d.ZEROTWO);})
+		.attr("r",function(d){return d.ZEROTWO == ""?0:0;})
+		.style("fill","blue")
+		.style("display", function(d) {return d.ZEROTWO == ""?"none":null;});
+		
+		for (var i=1; i<228; i++){
+			d3.select("svg").append("line").style("stroke","blue")
+			.attr("transform","translate(80,50)")
+			.attr("x1",axex(new Date(cpidata[i-1].DATE)))
+			.attr("y1",axey(cpidata[i-1].ZEROTWO))
+			.attr("x2",axex(new Date(cpidata[i].DATE)))
+			.attr("y2",axey(cpidata[i].ZEROTWO));
+		};
+		
+		d3.select("svg").append("g").attr("transform","translate(80,50)")
+		.selectAll("circle").data(homedata).enter().append("circle")
+		.attr("cx",function (d){return axex(new Date(d.DATE));})
+		.attr("cy",function (d){return axey(d.ZEROTWO);})
+		.attr("r",function(d){return d.ZEROTWO == ""?0:1;})
+		.style("fill","green")
+		.style("display", function(d) {return d.ZEROTWO == ""?"none":null;});
+		
+		for (var i=1; i<76; i++){
+			d3.select("svg").append("line").style("stroke","green")
+			.attr("transform","translate(80,50)")
+			.attr("x1",axex(new Date(homedata[i-1].DATE)))
+			.attr("y1",axey(homedata[i-1].ZEROTWO))
+			.attr("x2",axex(new Date(homedata[i].DATE)))
+			.attr("y2",axey(homedata[i].ZEROTWO));
+		};
+		
+		d3.select("svg").append("g").attr("transform","translate(80,50)")
+		.selectAll("circle").data(collegedata).enter().append("circle")
+		.attr("cx",function (d){return axex(new Date(d.YEAR));})
+		.attr("cy",function (d){return axey(d.ZEROTWO);})
+		.attr("r",function(d){return d.ZEROTWO == ""?0:1;})
+		.style("fill","black")
+		.style("display", function(d) {return d.ZEROTWO == ""?"none":null;});
+		
+		for (var i=1; i<19; i++){
+			d3.select("svg").append("line").style("stroke","black")
+			.attr("transform","translate(80,50)")
+			.attr("x1",axex(new Date(collegedata[i-1].YEAR)))
+			.attr("y1",axey(collegedata[i-1].ZEROTWO))
+			.attr("x2",axex(new Date(collegedata[i].YEAR)))
+			.attr("y2",axey(collegedata[i].ZEROTWO));
+		};
+		
+		d3.select("svg").append("g").attr("transform","translate(80,50)")
+		.selectAll("circle").data(studentdata).enter().append("circle")
+		.attr("cx",function (d){return axex(new Date(d.YEAR));})
+		.attr("cy",function (d){return axey(d.ZEROTWO);})
+		.attr("r",function(d){return d.ZEROTWO == ""?0:1;})
+		.style("fill","yellow")
+		.style("display", function(d) {return d.ZEROTWO == ""?"none":null;});
+		
+		for (var i=1; i<10; i++){
+			d3.select("svg").append("line").style("stroke","yellow")
+			.attr("transform","translate(80,50)")
+			.attr("x1",axex(new Date(studentdata[i-1].YEAR)))
+			.attr("y1",axey(studentdata[i-1].ZEROTWO))
+			.attr("x2",axex(new Date(studentdata[i].YEAR)))
+			.attr("y2",axey(studentdata[i].ZEROTWO));
+		};
+	}
+	async function chartdisplay08(){
+		d3.select("svg").selectAll("*").remove();
+		const meddata = await d3.csv("https://raw.githubusercontent.com/Joshua-T-MCS/DataVisualizationNarrative/main/medianHouseholdIncomeOverTime.csv");
+		
+		const cpidata = await d3.csv("https://raw.githubusercontent.com/Joshua-T-MCS/DataVisualizationNarrative/main/CPIovertime.csv");
+		
+		const homedata = await d3.csv("https://raw.githubusercontent.com/Joshua-T-MCS/DataVisualizationNarrative/main/HomePricesOverTime.csv");
+		
+		const collegedata = await d3.csv("https://raw.githubusercontent.com/Joshua-T-MCS/DataVisualizationNarrative/main/collegeCostsOverTime.csv");
+		
+		const studentdata = await d3.csv("https://raw.githubusercontent.com/Joshua-T-MCS/DataVisualizationNarrative/main/StudentDebtOverTime.csv");
+		
+		var axex = d3.scaleTime().domain([new Date("1-1-1984"),new Date("1-1-2020")]).range([0,525]);
+		var axey = d3.scaleLinear().domain([0,4]).range([350,0]);
+		
+		d3.select("svg").append("g").attr("transform","translate(80,50)")
+		.call(d3.axisLeft(axey).ticks(9).tickFormat(function(d){return d*100+"%";}));
+		
+		d3.select("svg").append("g").attr("transform","translate(80,400)")
+		.call(d3.axisBottom(axex));
+		
+		d3.select("svg").append("g").attr("transform","translate(80,50)")
+		.selectAll("circle").data(meddata).enter().append("circle")
+		.attr("cx",function (d){return axex(new Date(d.DATE));})
+		.attr("cy",function (d){return axey(d.ZEROEIGHT);})
+		.attr("r",function(d){return d.ZEROEIGHT == ""?0:1;})
+		.style("fill","purple");
+		
+		highlights84();
+		highlights90();
+		highlights96();
+		highlights02();
+		highlights08();
+		annotations08();
+		
+		for (var i=1; i<25; i++){
+			d3.select("svg").append("line").style("stroke","purple")
+			.attr("transform","translate(80,50)")
+			.attr("x1",axex(new Date(meddata[i-1].DATE)))
+			.attr("y1",axey(meddata[i-1].ZEROEIGHT))
+			.attr("x2",axex(new Date(meddata[i].DATE)))
+			.attr("y2",axey(meddata[i].ZEROEIGHT));
+		};
+		
+		d3.select("svg").append("g").attr("transform","translate(80,50)")
+		.selectAll("circle").data(cpidata).enter().append("circle")
+		.attr("cx",function (d){return axex(new Date(d.DATE));})
+		.attr("cy",function (d){return axey(d.ZEROEIGHT);})
+		.attr("r",function(d){return d.ZEROEIGHT == ""?0:0;})
+		.style("fill","blue")
+		.style("display", function(d) {return d.ZEROEIGHT == ""?"none":null;});
+		
+		for (var i=1; i<300; i++){
+			d3.select("svg").append("line").style("stroke","blue")
+			.attr("transform","translate(80,50)")
+			.attr("x1",axex(new Date(cpidata[i-1].DATE)))
+			.attr("y1",axey(cpidata[i-1].ZEROEIGHT))
+			.attr("x2",axex(new Date(cpidata[i].DATE)))
+			.attr("y2",axey(cpidata[i].ZEROEIGHT));
+		};
+		
+		d3.select("svg").append("g").attr("transform","translate(80,50)")
+		.selectAll("circle").data(homedata).enter().append("circle")
+		.attr("cx",function (d){return axex(new Date(d.DATE));})
+		.attr("cy",function (d){return axey(d.ZEROEIGHT);})
+		.attr("r",function(d){return d.ZEROEIGHT == ""?0:1;})
+		.style("fill","green")
+		.style("display", function(d) {return d.ZEROEIGHT == ""?"none":null;});
+		
+		for (var i=1; i<100; i++){
+			d3.select("svg").append("line").style("stroke","green")
+			.attr("transform","translate(80,50)")
+			.attr("x1",axex(new Date(homedata[i-1].DATE)))
+			.attr("y1",axey(homedata[i-1].ZEROEIGHT))
+			.attr("x2",axex(new Date(homedata[i].DATE)))
+			.attr("y2",axey(homedata[i].ZEROEIGHT));
+		};
+		
+		d3.select("svg").append("g").attr("transform","translate(80,50)")
+		.selectAll("circle").data(collegedata).enter().append("circle")
+		.attr("cx",function (d){return axex(new Date(d.YEAR));})
+		.attr("cy",function (d){return axey(d.ZEROEIGHT);})
+		.attr("r",function(d){return d.ZEROEIGHT == ""?0:1;})
+		.style("fill","black")
+		.style("display", function(d) {return d.ZEROEIGHT == ""?"none":null;});
+		
+		for (var i=1; i<25; i++){
+			d3.select("svg").append("line").style("stroke","black")
+			.attr("transform","translate(80,50)")
+			.attr("x1",axex(new Date(collegedata[i-1].YEAR)))
+			.attr("y1",axey(collegedata[i-1].ZEROEIGHT))
+			.attr("x2",axex(new Date(collegedata[i].YEAR)))
+			.attr("y2",axey(collegedata[i].ZEROEIGHT));
+		};
+		
+		d3.select("svg").append("g").attr("transform","translate(80,50)")
+		.selectAll("circle").data(studentdata).enter().append("circle")
+		.attr("cx",function (d){return axex(new Date(d.YEAR));})
+		.attr("cy",function (d){return axey(d.ZEROEIGHT);})
+		.attr("r",function(d){return d.ZEROEIGHT == ""?0:1;})
+		.style("fill","yellow")
+		.style("display", function(d) {return d.ZEROEIGHT == ""?"none":null;});
+		
+		for (var i=1; i<16; i++){
+			d3.select("svg").append("line").style("stroke","yellow")
+			.attr("transform","translate(80,50)")
+			.attr("x1",axex(new Date(studentdata[i-1].YEAR)))
+			.attr("y1",axey(studentdata[i-1].ZEROEIGHT))
+			.attr("x2",axex(new Date(studentdata[i].YEAR)))
+			.attr("y2",axey(studentdata[i].ZEROEIGHT));
+		};
+	}
+	async function chartdisplay14(){
+		d3.select("svg").selectAll("*").remove();
+		const meddata = await d3.csv("https://raw.githubusercontent.com/Joshua-T-MCS/DataVisualizationNarrative/main/medianHouseholdIncomeOverTime.csv");
+		
+		const cpidata = await d3.csv("https://raw.githubusercontent.com/Joshua-T-MCS/DataVisualizationNarrative/main/CPIovertime.csv");
+		
+		const homedata = await d3.csv("https://raw.githubusercontent.com/Joshua-T-MCS/DataVisualizationNarrative/main/HomePricesOverTime.csv");
+		
+		const collegedata = await d3.csv("https://raw.githubusercontent.com/Joshua-T-MCS/DataVisualizationNarrative/main/collegeCostsOverTime.csv");
+		
+		const studentdata = await d3.csv("https://raw.githubusercontent.com/Joshua-T-MCS/DataVisualizationNarrative/main/StudentDebtOverTime.csv");
+		
+		var axex = d3.scaleTime().domain([new Date("1-1-1984"),new Date("1-1-2020")]).range([0,525]);
+		var axey = d3.scaleLinear().domain([0,4]).range([350,0]);
+		
+		d3.select("svg").append("g").attr("transform","translate(80,50)")
+		.call(d3.axisLeft(axey).ticks(9).tickFormat(function(d){return d*100+"%";}));
+		
+		d3.select("svg").append("g").attr("transform","translate(80,400)")
+		.call(d3.axisBottom(axex));
+		
+		d3.select("svg").append("g").attr("transform","translate(80,50)")
+		.selectAll("circle").data(meddata).enter().append("circle")
+		.attr("cx",function (d){return axex(new Date(d.DATE));})
+		.attr("cy",function (d){return axey(d.FOURTEEN);})
+		.attr("r",function(d){return d.FOURTEEN == ""?0:1;})
+		.style("fill","purple");
+		
+		highlights84();
+		highlights90();
+		highlights96();
+		highlights02();
+		highlights08();
+		highlights14();
+		annotations14();
+		
+		for (var i=1; i<31; i++){
+			d3.select("svg").append("line").style("stroke","purple")
+			.attr("transform","translate(80,50)")
+			.attr("x1",axex(new Date(meddata[i-1].DATE)))
+			.attr("y1",axey(meddata[i-1].FOURTEEN))
+			.attr("x2",axex(new Date(meddata[i].DATE)))
+			.attr("y2",axey(meddata[i].FOURTEEN));
+		};
+		
+		d3.select("svg").append("g").attr("transform","translate(80,50)")
+		.selectAll("circle").data(cpidata).enter().append("circle")
+		.attr("cx",function (d){return axex(new Date(d.DATE));})
+		.attr("cy",function (d){return axey(d.FOURTEEN);})
+		.attr("r",function(d){return d.FOURTEEN == ""?0:0;})
+		.style("fill","blue")
+		.style("display", function(d) {return d.FOURTEEN == ""?"none":null;});
+		
+		for (var i=1; i<372; i++){
+			d3.select("svg").append("line").style("stroke","blue")
+			.attr("transform","translate(80,50)")
+			.attr("x1",axex(new Date(cpidata[i-1].DATE)))
+			.attr("y1",axey(cpidata[i-1].FOURTEEN))
+			.attr("x2",axex(new Date(cpidata[i].DATE)))
+			.attr("y2",axey(cpidata[i].FOURTEEN));
+		};
+		
+		d3.select("svg").append("g").attr("transform","translate(80,50)")
+		.selectAll("circle").data(homedata).enter().append("circle")
+		.attr("cx",function (d){return axex(new Date(d.DATE));})
+		.attr("cy",function (d){return axey(d.FOURTEEN);})
+		.attr("r",function(d){return d.FOURTEEN == ""?0:1;})
+		.style("fill","green")
+		.style("display", function(d) {return d.FOURTEEN == ""?"none":null;});
+		
+		for (var i=1; i<124; i++){
+			d3.select("svg").append("line").style("stroke","green")
+			.attr("transform","translate(80,50)")
+			.attr("x1",axex(new Date(homedata[i-1].DATE)))
+			.attr("y1",axey(homedata[i-1].FOURTEEN))
+			.attr("x2",axex(new Date(homedata[i].DATE)))
+			.attr("y2",axey(homedata[i].FOURTEEN));
+		};
+		
+		d3.select("svg").append("g").attr("transform","translate(80,50)")
+		.selectAll("circle").data(collegedata).enter().append("circle")
+		.attr("cx",function (d){return axex(new Date(d.YEAR));})
+		.attr("cy",function (d){return axey(d.FOURTEEN);})
+		.attr("r",function(d){return d.FOURTEEN == ""?0:1;})
+		.style("fill","black")
+		.style("display", function(d) {return d.FOURTEEN == ""?"none":null;});
+		
+		for (var i=1; i<31; i++){
+			d3.select("svg").append("line").style("stroke","black")
+			.attr("transform","translate(80,50)")
+			.attr("x1",axex(new Date(collegedata[i-1].YEAR)))
+			.attr("y1",axey(collegedata[i-1].FOURTEEN))
+			.attr("x2",axex(new Date(collegedata[i].YEAR)))
+			.attr("y2",axey(collegedata[i].FOURTEEN));
+		};
+		
+		d3.select("svg").append("g").attr("transform","translate(80,50)")
+		.selectAll("circle").data(studentdata).enter().append("circle")
+		.attr("cx",function (d){return axex(new Date(d.YEAR));})
+		.attr("cy",function (d){return axey(d.FOURTEEN);})
+		.attr("r",function(d){return d.FOURTEEN == ""?0:1;})
+		.style("fill","yellow")
+		.style("display", function(d) {return d.FOURTEEN == ""?"none":null;});
+		
+		for (var i=1; i<22; i++){
+			d3.select("svg").append("line").style("stroke","yellow")
+			.attr("transform","translate(80,50)")
+			.attr("x1",axex(new Date(studentdata[i-1].YEAR)))
+			.attr("y1",axey(studentdata[i-1].FOURTEEN))
+			.attr("x2",axex(new Date(studentdata[i].YEAR)))
+			.attr("y2",axey(studentdata[i].FOURTEEN));
+		};
+	}
+	async function chartdisplay20(){
+		d3.select("svg").selectAll("*").remove();
+		const meddata = await d3.csv("https://raw.githubusercontent.com/Joshua-T-MCS/DataVisualizationNarrative/main/medianHouseholdIncomeOverTime.csv");
+		
+		const cpidata = await d3.csv("https://raw.githubusercontent.com/Joshua-T-MCS/DataVisualizationNarrative/main/CPIovertime.csv");
+		
+		const homedata = await d3.csv("https://raw.githubusercontent.com/Joshua-T-MCS/DataVisualizationNarrative/main/HomePricesOverTime.csv");
+		
+		const collegedata = await d3.csv("https://raw.githubusercontent.com/Joshua-T-MCS/DataVisualizationNarrative/main/collegeCostsOverTime.csv");
+		
+		const studentdata = await d3.csv("https://raw.githubusercontent.com/Joshua-T-MCS/DataVisualizationNarrative/main/StudentDebtOverTime.csv");
+		
+		var axex = d3.scaleTime().domain([new Date("1-1-1984"),new Date("1-1-2020")]).range([0,525]);
+		var axey = d3.scaleLinear().domain([0,4]).range([350,0]);
+		
+		d3.select("svg").append("g").attr("transform","translate(80,50)")
+		.call(d3.axisLeft(axey).ticks(9).tickFormat(function(d){return d*100+"%";}));
+		
+		d3.select("svg").append("g").attr("transform","translate(80,400)")
+		.call(d3.axisBottom(axex));
+		
+		d3.select("svg").append("g").attr("transform","translate(80,50)")
+		.selectAll("circle").data(meddata).enter().append("circle")
+		.attr("cx",function (d){return axex(new Date(d.DATE));})
+		.attr("cy",function (d){return axey(d.TWENTY);})
+		.attr("r",function(d){return d.TWENTY == ""?0:1;})
+		.style("fill","purple");
+		
+		highlights84();
+		highlights90();
+		highlights96();
+		highlights02();
+		highlights08();
+		highlights14();
+		highlights20();
+		annotations20();
+		
+		for (var i=1; i<37; i++){
+			d3.select("svg").append("line").style("stroke","purple")
+			.attr("transform","translate(80,50)")
+			.attr("x1",axex(new Date(meddata[i-1].DATE)))
+			.attr("y1",axey(meddata[i-1].TWENTY))
+			.attr("x2",axex(new Date(meddata[i].DATE)))
+			.attr("y2",axey(meddata[i].TWENTY));
+		};
+		
+		d3.select("svg").append("g").attr("transform","translate(80,50)")
+		.selectAll("circle").data(cpidata).enter().append("circle")
+		.attr("cx",function (d){return axex(new Date(d.DATE));})
+		.attr("cy",function (d){return axey(d.TWENTY);})
+		.attr("r",function(d){return d.TWENTY == ""?0:0;})
+		.style("fill","blue")
+		.style("display", function(d) {return d.TWENTY == ""?"none":null;});
+		
+		for (var i=1; i<433; i++){
+			d3.select("svg").append("line").style("stroke","blue")
+			.attr("transform","translate(80,50)")
+			.attr("x1",axex(new Date(cpidata[i-1].DATE)))
+			.attr("y1",axey(cpidata[i-1].TWENTY))
+			.attr("x2",axex(new Date(cpidata[i].DATE)))
+			.attr("y2",axey(cpidata[i].TWENTY));
+		};
+		
+		d3.select("svg").append("g").attr("transform","translate(80,50)")
+		.selectAll("circle").data(homedata).enter().append("circle")
+		.attr("cx",function (d){return axex(new Date(d.DATE));})
+		.attr("cy",function (d){return axey(d.TWENTY);})
+		.attr("r",function(d){return d.TWENTY == ""?0:1;})
+		.style("fill","green")
+		.style("display", function(d) {return d.TWENTY == ""?"none":null;});
+		
+		for (var i=1; i<145; i++){
+			d3.select("svg").append("line").style("stroke","green")
+			.attr("transform","translate(80,50)")
+			.attr("x1",axex(new Date(homedata[i-1].DATE)))
+			.attr("y1",axey(homedata[i-1].TWENTY))
+			.attr("x2",axex(new Date(homedata[i].DATE)))
+			.attr("y2",axey(homedata[i].TWENTY));
+		};
+		
+		d3.select("svg").append("g").attr("transform","translate(80,50)")
+		.selectAll("circle").data(collegedata).enter().append("circle")
+		.attr("cx",function (d){return axex(new Date(d.YEAR));})
+		.attr("cy",function (d){return axey(d.TWENTY);})
+		.attr("r",function(d){return d.TWENTY == ""?0:1;})
+		.style("fill","black")
+		.style("display", function(d) {return d.TWENTY == ""?"none":null;});
+		
+		for (var i=1; i<36; i++){
+			d3.select("svg").append("line").style("stroke","black")
+			.attr("transform","translate(80,50)")
+			.attr("x1",axex(new Date(collegedata[i-1].YEAR)))
+			.attr("y1",axey(collegedata[i-1].TWENTY))
+			.attr("x2",axex(new Date(collegedata[i].YEAR)))
+			.attr("y2",axey(collegedata[i].TWENTY));
+		};
+		
+		d3.select("svg").append("g").attr("transform","translate(80,50)")
+		.selectAll("circle").data(studentdata).enter().append("circle")
+		.attr("cx",function (d){return axex(new Date(d.YEAR));})
+		.attr("cy",function (d){return axey(d.TWENTY);})
+		.attr("r",function(d){return d.TWENTY == ""?0:1;})
+		.style("fill","yellow")
+		.style("display", function(d) {return d.TWENTY == ""?"none":null;});
+		
+		for (var i=1; i<28; i++){
+			d3.select("svg").append("line").style("stroke","yellow")
+			.attr("transform","translate(80,50)")
+			.attr("x1",axex(new Date(studentdata[i-1].YEAR)))
+			.attr("y1",axey(studentdata[i-1].TWENTY))
+			.attr("x2",axex(new Date(studentdata[i].YEAR)))
+			.attr("y2",axey(studentdata[i].TWENTY));
+		};
+	}
+	
+	async function debtratio(){
+		d3.select("#pie-shelf").selectAll("*").remove();
+		const data = await d3.csv("https://raw.githubusercontent.com/Joshua-T-MCS/DataVisualizationNarrative/main/recommendedDebt.csv");
+		var color = ["green", "cyan", "yellow", "purple"];
+		var labelNames = ["Mortgage", "College", "Cushion", "Remaining Income"];
+		var labelVals = ["28","8","7","57"];
+		var valLocs = ["-45,-25","25,-35","0,-40","-5,45"];
+		var pieRec = d3.pie()
+			.startAngle(Math.PI/3)
+			.endAngle(7*Math.PI/3)
+			.padAngle(0.05)
+			.value((d) => d.RECPERC)
+			.sortValues((a,b) => a < b ? 1 : -1);;
+		var dataRec = pieRec(data);
+		var arc = d3.arc().innerRadius(20).outerRadius(60);
+		
+		var squareGen = d3.symbol().type(d3.symbolSquare).size(60);
+		var squarePath = squareGen();
+		
+		d3.select("#pie-shelf").append("g").attr("id","pieRec").attr("transform","translate(90,110)").selectAll("path").data(dataRec).enter().append("path").attr("d",arc).attr("fill",function(d,i){return color[i];});
+		
+		for(var i=0; i<labelNames.length;i++){
+			d3.select("#pieRec").append("text").attr("transform","translate("+valLocs[i]+")").text(labelVals[i]+"%").style("font","12px arial");
+		}
+		
+		d3.select("#pieRec").append("text").attr("transform","translate(-60,-75)").text("Recommended").attr("font-weight",800).style("font","20px arial");
+		
+		var symbolData = [[0,0],[70,0],[0,15],[70,15]];
+		var legendColor = ["green", "yellow", "cyan", "purple"];
+		for(var i=0; i<symbolData.length;i++){
+			d3.select("#pie-shelf").append("g").attr("transform","translate(15,200)").selectAll("path").data(symbolData).join("path").attr("transform",function(d){return "translate ("+symbolData[i]+")";}).attr("d",squarePath).style("fill",legendColor[i]);
+			d3.select("#pie-shelf").append("text").attr("transform","translate(15,200)").text(labelNames[i]).attr("x",symbolData[i][0]+5).attr("y",symbolData[i][1]+5).style("font","12px arial");
+		}
+	}
+	async function piechart84(){
+		const data = await d3.csv("https://raw.githubusercontent.com/Joshua-T-MCS/DataVisualizationNarrative/main/recommendedDebt.csv");
+		var color = ["green", "yellow", "cyan", "purple"];
+		var labelNames = ["Mortgage", "College", "Cushion", "Remaining Income"];
+		var labelVals = ["20.68","2.79","19.53","57"];
+		var valLocs = ["-60,-15","25,-30","-15,-40","-5,45"];
+		var pie84 = d3.pie()
+			.startAngle(Math.PI/3)
+			.endAngle(7*Math.PI/3)
+			.padAngle(0.05)
+			.value((d) => d.eightyfour)
+			.sortValues((a,b) => a < b ? 1 : -1);;
+		var data84 = pie84(data);
+		var arc = d3.arc().innerRadius(20).outerRadius(60);
+		
+		d3.select("#pie-shelf").append("g").attr("id","pie84").attr("transform","translate(90,310)").selectAll("path").data(data84).enter().append("path").attr("d",arc).attr("fill",function(d,i){return color[i];});
+		
+		for(var i=0; i<labelNames.length;i++){
+			d3.select("#pie84").append("text").attr("transform","translate("+valLocs[i]+")").text(labelVals[i]+"%").style("font","12px arial");
+		}
+		
+		d3.select("#pie84").append("text").attr("transform","translate(-20,85)").text("1984").attr("font-weight",800).style("font","20px arial");
+	}
+	async function piechart90(){
+		const data = await d3.csv("https://raw.githubusercontent.com/Joshua-T-MCS/DataVisualizationNarrative/main/recommendedDebt.csv");
+		var color = ["green", "yellow", "cyan", "purple"];
+		var labelNames = ["Mortgage", "College", "Cushion", "Remaining Income"];
+		var labelVals = ["22.87","2.79","17.34","57"];
+		var valLocs = ["-60,-15","25,-30","-15,-40","-5,45"];
+		var pie = d3.pie()
+			.startAngle(Math.PI/3)
+			.endAngle(7*Math.PI/3)
+			.padAngle(0.05)
+			.value((d) => d.ninety)
+			.sortValues((a,b) => a < b ? 1 : -1);;
+		var pieData = pie(data);
+		var arc = d3.arc().innerRadius(20).outerRadius(60);
+		
+		d3.select("#pie-shelf").append("g").attr("id","pie90").attr("transform","translate(90,310)").selectAll("path").data(pieData).enter().append("path").attr("d",arc).attr("fill",function(d,i){return color[i];});
+		
+		for(var i=0; i<labelNames.length;i++){
+			d3.select("#pie90").append("text").attr("transform","translate("+valLocs[i]+")").text(labelVals[i]+"%").style("font","12px arial");
+		}
+		
+		d3.select("#pie90").append("text").attr("transform","translate(-20,85)").text("1990").attr("font-weight",800).style("font","20px arial");
+	}
+	async function piechart96(){
+		const data = await d3.csv("https://raw.githubusercontent.com/Joshua-T-MCS/DataVisualizationNarrative/main/recommendedDebt.csv");
+		var color = ["green", "yellow", "cyan", "purple"];
+		var labelNames = ["Mortgage", "College", "Cushion", "Remaining Income"];
+		var labelVals = ["20.25","4.37","18.38","57"];
+		var valLocs = ["-60,-15","25,-30","-15,-40","-5,45"];
+		var pie = d3.pie()
+			.startAngle(Math.PI/3)
+			.endAngle(7*Math.PI/3)
+			.padAngle(0.05)
+			.value((d) => d.ninetysix)
+			.sortValues((a,b) => a < b ? 1 : -1);;
+		var pieData = pie(data);
+		var arc = d3.arc().innerRadius(20).outerRadius(60);
+		
+		d3.select("#pie-shelf").append("g").attr("id","pie96").attr("transform","translate(90,310)").selectAll("path").data(pieData).enter().append("path").attr("d",arc).attr("fill",function(d,i){return color[i];});
+		
+		for(var i=0; i<labelNames.length;i++){
+			d3.select("#pie96").append("text").attr("transform","translate("+valLocs[i]+")").text(labelVals[i]+"%").style("font","12px arial");
+		}
+		
+		d3.select("#pie96").append("text").attr("transform","translate(-20,85)").text("1996").attr("font-weight",800).style("font","20px arial");
+	}
+	async function piechart02(){
+		const data = await d3.csv("https://raw.githubusercontent.com/Joshua-T-MCS/DataVisualizationNarrative/main/recommendedDebt.csv");
+		var color = ["green", "yellow", "cyan", "purple"];
+		var labelNames = ["Mortgage", "College", "Cushion", "Remaining Income"];
+		var labelVals = ["23.55","4.69","14.76","57"];
+		var valLocs = ["-60,-15","25,-30","-15,-40","-5,45"];
+		var pie = d3.pie()
+			.startAngle(Math.PI/3)
+			.endAngle(7*Math.PI/3)
+			.padAngle(0.05)
+			.value((d) => d.zerotwo)
+			.sortValues((a,b) => a < b ? 1 : -1);;
+		var pieData = pie(data);
+		var arc = d3.arc().innerRadius(20).outerRadius(60);
+		
+		d3.select("#pie-shelf").append("g").attr("id","pie02").attr("transform","translate(90,310)").selectAll("path").data(pieData).enter().append("path").attr("d",arc).attr("fill",function(d,i){return color[i];});
+		
+		for(var i=0; i<labelNames.length;i++){
+			d3.select("#pie02").append("text").attr("transform","translate("+valLocs[i]+")").text(labelVals[i]+"%").style("font","12px arial");
+		}
+		
+		d3.select("#pie02").append("text").attr("transform","translate(-20,85)").text("2002").attr("font-weight",800).style("font","20px arial");
+	}
+	async function piechart08(){
+		const data = await d3.csv("https://raw.githubusercontent.com/Joshua-T-MCS/DataVisualizationNarrative/main/recommendedDebt.csv");
+		var color = ["green", "yellow", "cyan", "purple"];
+		var labelNames = ["Mortgage", "College", "Cushion", "Remaining Income"];
+		var labelVals = ["28.56","5.06","9.38","57"];
+		var valLocs = ["-60,-15","25,-30","-15,-40","-5,45"];
+		var pie = d3.pie()
+			.startAngle(Math.PI/3)
+			.endAngle(7*Math.PI/3)
+			.padAngle(0.05)
+			.value((d) => d.zeroeight)
+			.sortValues((a,b) => a < b ? 1 : -1);;
+		var pieData = pie(data);
+		var arc = d3.arc().innerRadius(20).outerRadius(60);
+		
+		d3.select("#pie-shelf").append("g").attr("id","pie08").attr("transform","translate(90,310)").selectAll("path").data(pieData).enter().append("path").attr("d",arc).attr("fill",function(d,i){return color[i];});
+		
+		for(var i=0; i<labelNames.length;i++){
+			d3.select("#pie08").append("text").attr("transform","translate("+valLocs[i]+")").text(labelVals[i]+"%").style("font","12px arial");
+		}
+		
+		d3.select("#pie08").append("text").attr("transform","translate(-20,85)").text("2008").attr("font-weight",800).style("font","20px arial");
+	}
+	async function piechart14(){
+		const data = await d3.csv("https://raw.githubusercontent.com/Joshua-T-MCS/DataVisualizationNarrative/main/recommendedDebt.csv");
+		var color = ["green", "yellow", "cyan", "purple"];
+		var labelNames = ["Mortgage", "College", "Cushion", "Remaining Income"];
+		var labelVals = ["27.4","4.84","10.76","57"];
+		var valLocs = ["-60,-15","25,-30","-15,-40","-5,45"];
+		var pie = d3.pie()
+			.startAngle(Math.PI/3)
+			.endAngle(7*Math.PI/3)
+			.padAngle(0.05)
+			.value((d) => d.fourteen)
+			.sortValues((a,b) => a < b ? 1 : -1);;
+		var pieData = pie(data);
+		var arc = d3.arc().innerRadius(20).outerRadius(60);
+		
+		d3.select("#pie-shelf").append("g").attr("id","pie14").attr("transform","translate(90,310)").selectAll("path").data(pieData).enter().append("path").attr("d",arc).attr("fill",function(d,i){return color[i];});
+		
+		for(var i=0; i<labelNames.length;i++){
+			d3.select("#pie14").append("text").attr("transform","translate("+valLocs[i]+")").text(labelVals[i]+"%").style("font","12px arial");
+		}
+		
+		d3.select("#pie14").append("text").attr("transform","translate(-20,85)").text("2014").attr("font-weight",800).style("font","20px arial");
+	}
+	async function piechart20(){
+		const data = await d3.csv("https://raw.githubusercontent.com/Joshua-T-MCS/DataVisualizationNarrative/main/recommendedDebt.csv");
+		var color = ["green", "yellow", "cyan", "purple"];
+		var labelNames = ["Mortgage", "College", "Cushion", "Remaining Income"];
+		var labelVals = ["25.01","3.8","14.19","57"];
+		var valLocs = ["-60,-15","25,-30","-15,-40","-5,45"];
+		var pie = d3.pie()
+			.startAngle(Math.PI/3)
+			.endAngle(7*Math.PI/3)
+			.padAngle(0.05)
+			.value((d) => d.twenty)
+			.sortValues((a,b) => a < b ? 1 : -1);;
+		var pieData = pie(data);
+		var arc = d3.arc().innerRadius(20).outerRadius(60);
+		
+		d3.select("#pie-shelf").append("g").attr("id","pie20").attr("transform","translate(90,310)").selectAll("path").data(pieData).enter().append("path").attr("d",arc).attr("fill",function(d,i){return color[i];});
+		
+		for(var i=0; i<labelNames.length;i++){
+			d3.select("#pie20").append("text").attr("transform","translate("+valLocs[i]+")").text(labelVals[i]+"%").style("font","12px arial");
+		}
+		
+		d3.select("#pie20").append("text").attr("transform","translate(-20,85)").text("2020").attr("font-weight",800).style("font","20px arial");
+	}
+	function chartLegend(){
+		d3.select("#chart-display").append("g").attr("id","lineLegend")
+		.attr("transform","translate(80,440)").append("line").style("stroke","purple")
+		.attr("x1",0).attr("y1",0)
+		.attr("x2",10).attr("y2",0);
+		d3.select("#lineLegend").append("text").attr("transform","translate(10,5)").text("Annual Income").style("font","12px arial");
+		
+		d3.select("#chart-display").append("g").attr("id","lineLegend")
+		.attr("transform","translate(80,440)").append("line").style("stroke","green")
+		.attr("x1",105).attr("y1",0)
+		.attr("x2",115).attr("y2",0);
+		d3.select("#lineLegend").append("text").attr("transform","translate(115,5)").text("Home Prices").style("font","12px arial");
+		
+		d3.select("#chart-display").append("g").attr("id","lineLegend")
+		.attr("transform","translate(80,440)").append("line").style("stroke","yellow")
+		.attr("x1",200).attr("y1",0)
+		.attr("x2",210).attr("y2",0);
+		d3.select("#lineLegend").append("text").attr("transform","translate(210,5)").text("Student Debt").style("font","12px arial");
+		
+		d3.select("#chart-display").append("g").attr("id","lineLegend")
+		.attr("transform","translate(80,440)").append("line").style("stroke","black")
+		.attr("x1",300).attr("y1",0)
+		.attr("x2",310).attr("y2",0);
+		d3.select("#lineLegend").append("text").attr("transform","translate(310,5)").text("College Prices").style("font","12px arial");
+		
+		d3.select("#chart-display").append("g").attr("id","lineLegend")
+		.attr("transform","translate(80,440)").append("line").style("stroke","blue")
+		.attr("x1",405).attr("y1",0)
+		.attr("x2",415).attr("y2",0);
+		d3.select("#lineLegend").append("text").attr("transform","translate(415,5)").text("Consumer Price Index").style("font","12px arial");
+		
+		d3.select("#chart-display").append("text").attr("transform","translate (150,50)").style("font","32px arial").text("Market Trends Since 1984");
+		
+		d3.select("#chart-display").append("text").attr("text-anchor","end").attr("transform","rotate(-90)").attr("y",30).attr("x",-160).text("% Increase Since 1984").style("font","12px arial");
+	}
+	async function startingChart(){
+		d3.select("svg").selectAll("*").remove();
+		d3.select("#pie-shelf").selectAll("*").remove();
+		const data = await d3.csv("https://raw.githubusercontent.com/Joshua-T-MCS/DataVisualizationNarrative/main/recommendedDebt.csv");
+		var color = ["green", "cyan", "yellow", "purple"];
+		var labelNames = ["Monthly Mortgage", "Student Loans", "Spare Debt Cushion", "Remaining Gross Income"];
+		var labelVals = ["28","8","7","57"];
+		var valLocs = ["-105,-65","65,-90","10,-115","-5,115"];
+		var pieRec = d3.pie()
+			.startAngle(Math.PI/3)
+			.endAngle(7*Math.PI/3)
+			.padAngle(0.05)
+			.value((d) => d.RECPERC)
+			.sortValues((a,b) => a < b ? 1 : -1);;
+		var dataRec = pieRec(data);
+		var arc = d3.arc().innerRadius(80).outerRadius(150);
+		
+		var squareGen = d3.symbol().type(d3.symbolSquare).size(90);
+		var squarePath = squareGen();
+		
+		d3.select("#chart-display").append("g").attr("id","pieStart").attr("transform","translate(350,210)").selectAll("path").data(dataRec).enter().append("path").attr("d",arc).attr("fill",function(d,i){return color[i];});
+		
+		for(var i=0; i<labelNames.length;i++){
+			d3.select("#pieStart").append("text").attr("transform","translate("+valLocs[i]+")").text(labelVals[i]+"%").style("font","20px arial");
+		}
+		
+		d3.select("#pieStart").append("text").attr("transform","translate(-260,-165)").text("Expert Recommended Debt Ratios").attr("font-weight",800).style("font","32px arial");
+		
+		var symbolData = [[-140,-15],[70,-15],[-140,15],[70,15]];
+		var legendColor = ["green", "yellow", "cyan", "purple"];
+		for(var i=0; i<symbolData.length;i++){
+			d3.select("#pieStart").append("g").attr("transform","translate(-50,200)").selectAll("path").data(symbolData).join("path").attr("transform",function(d){return "translate ("+symbolData[i]+")";}).attr("d",squarePath).style("fill",legendColor[i]);
+			d3.select("#pieStart").append("text").attr("transform","translate(-50,200)").text(labelNames[i]).attr("x",symbolData[i][0]+10).attr("y",symbolData[i][1]+8).style("font","20px arial");
+		}
+	}
+	</script>
+</head>
+<body onload="startingChart()">
+	<header>
+		<h1>Is the American Dream<br>Just a Pipe Dream?</h1>
+	</header>
+	
+	<section>
+		<div class="visual-container">
+			<div id="display-bottom">
+				<div id="chart-window">
+					<svg id="chart-display">
+					</svg>
+				</div>
+				
+				<div id="tooltip">
+					<h3 style="margin:5px;" id="smallTitle">&nbsp</h3>
+					<svg id="pie-shelf"></svg>
+				</div>
+			</div>
+			<div id="bottom-bar">
+				<div id="visual-navbar">
+					<div id="nav-buttons">
+						<button type="button" onclick="slideshowBack()" class="n-button">Back</button>
+						<button type="button" onclick="slideshowNext()" class="n-button">Next</button>
+					</div>
+					<div id="sourcedocs">
+						<p id="blank-source">&nbsp</p>
+						<p id="s1" hidden>Sources: &diams;<a href="https://www.cutoday.info/Fresh-Today/Baby-Boomers-Vs.-Millennials-The-Costs-for-Each-in-Buying-a-Home">Baby Boomers Vs. Millenials</a>    &diams;<a href="https://www.investopedia.com/ask/answers/081214/whats-considered-be-good-debttoincome-dti-ratio.asp">Recommended Mortgage Ratio</a>    &diams;<a href="https://www.gafutures.org/college-planning/college-money-matters/choosing-a-major/debt-to-salary-ratio/#:~:text=Some%20experts%20say%20your%20future,guideline%20for%20students%20to%20remember.">Recommended College Debt Ratio</a></p>
+						<p id="s2" hidden>Sources: &diams;<a href="https://anytimeestimate.com/research/housing-prices-vs-inflation/#housing-vs-inflation">Why Millenials Can't Afford Homes</a>    &diams;<a href="https://fred.stlouisfed.org/series/MSPUS">Median Sales Price of Houses</a><br>    &diams;<a href="https://fred.stlouisfed.org/series/MEHOINUSA672N">Real Median Household Income</a>    &diams;<a href="https://fred.stlouisfed.org/series/CPIAUCSL">Consumer Price Index</a>    &diams;<a href="https://educationdata.org/average-student-loan-debt-by-year">Studen Loan Debt at Graduation</a></p>
+					</div>
+				</div>
 
-You can use the [editor on GitHub](https://github.com/Joshua-T-MCS/Joshua-T-MCS.github.io/edit/main/index.md) to maintain and preview the content for your website in Markdown files.
-
-Whenever you commit to this repository, GitHub Pages will run [Jekyll](https://jekyllrb.com/) to rebuild the pages in your site, from the content in your Markdown files.
-
-### Markdown
-
-Markdown is a lightweight and easy-to-use syntax for styling your writing. It includes conventions for
-
-```markdown
-Syntax highlighted code block
-
-# Header 1
-## Header 2
-### Header 3
-
-- Bulleted
-- List
-
-1. Numbered
-2. List
-
-**Bold** and _Italic_ and `Code` text
-
-[Link](url) and ![Image](src)
-```
-
-For more details see [Basic writing and formatting syntax](https://docs.github.com/en/github/writing-on-github/getting-started-with-writing-and-formatting-on-github/basic-writing-and-formatting-syntax).
-
-### Jekyll Themes
-
-Your Pages site will use the layout and styles from the Jekyll theme you have selected in your [repository settings](https://github.com/Joshua-T-MCS/Joshua-T-MCS.github.io/settings/pages). The name of this theme is saved in the Jekyll `_config.yml` configuration file.
-
-### Support or Contact
-
-Having trouble with Pages? Check out our [documentation](https://docs.github.com/categories/github-pages-basics/) or [contact support](https://support.github.com/contact) and we’ll help you sort it out.
+			</div>
+			
+			
+			
+		</div>
+		
+		<div class="mynarrative">
+			<div id="a">
+				<h2>The Good Old Days?</h2>
+				<p>America has been through a lot over the last 40 years – wars, political divide, a pandemic, economic highs and lows.  Many people pine for the good old days, when a road trip with friends wouldn't break the bank and, with a little bit of hard work, the average person could purchase their own home and claim the American Dream.</p>
+				<p>Indeed, much of the current generational strife revolves around this notion of homeownership.  The general consensus, at least among younger individuals, is that the older generations had it easier.  They could buy a home, get an education, and still afford to live.  Not so much these days.  But is there any truth to this claim?</p>
+				<p>Let's look at the numbers.</p>
+				<p>In today's modern world, it's all but impossible to live life without going into some debt, but this isn't a bad thing.  When well managed, debt is a responsible way of acquiring now what it would otherwise take a lifetime of work to own.  But what is a responsible level of debt?</p>
+				<p>According to the experts, a household can reasonably invest up to 28% of it's monthly income in a mortgage.  Around 8%-12% should be set aside for student loan repayments.  There is some wiggle room.  A household can accrue a debt that equals 43% of the monthly income before mortgage lenders consistently deny loan applications.</p>
+			</div>
+			<div id="b" hidden>
+				<h2>Oh the 80s</h2>
+				<p>Now we have a baseline of responsible financial management.  Great.  So what?  What does this actually mean in real life?  What does this mean historically for the average American?</p>
+				<p>The line chart to the left starts with the year 1984.  We'll use this as our historical starting point.  Overall, things were pretty good.  The average home price was somewhat higher than the average annual household income, but not by much.  People had some student debt (though college attendance was markedly lower than today so a lot of people didn't have this debt at all).  The student loans weren't insignificant, but they weren't overly burdensome.</p>
+				<p>The pie charts show the recommended debt ratio (28% for the mortgage, 8% for student loans, and 7% leftover for other debts like a car loan) as well as   the actual debt burden the average household typically bore.  Again, the numbers look pretty good.  Most households were well below what the experts said was financially responsible.</p>
+			</div>
+			<div id="c" hidden>
+				<h2>The Beginning of a Trend?</h2>
+				<p>By 1990 we see the start of a trend that is cause for concern, but not alarm.  House prices are rising dramatically faster than wages and we see this reflected in the debt ratio of the average household.  But the cost of education remains commensurate.  And besides, a lot of exciting technologies are just on the horizon.  The personal computer is just starting to become widespread and nerd culture takes its first timid steps into society.  Newly built homes are going to need to support an increasingly electronic world.  It only makes sense the prices would rise a little faster than usual.</p>
+			</div>
+			<div id="d" hidden>
+				<h2>The Digital Age Begins</h2>
+				<p>In less than a decade the computer has become king.  Cell phones, which had been around for a while at this point, are finally small enough to fit in the pocket and the battery life long enough for that to mean something.  By 1996 there is a disturbing spike in education costs, but this makes sense.  The future very clearly is digital at this point and if people want to navigate it, they're going to need to earn an education to do it.</p>
+				<p>Thankfully, this increase in college costs is balanced out by a relative cooling in the rise of house prices as well as a commensurate bump in the average household income.</p>
+			</div>
+			<div id="e" hidden>
+				<h2>A Rough Start</h2>
+				<p>By the turn of the millenium, the pinch is beginning to be felt. The housing market is hot again and this time, education is riding that wave too.  Business productivity is up due to new digital technologies and wages are generally on the rise in part because of this. Unfortunately, the wage increase is woefully behind the rising cost of living.  Debt is on the rise, and while there is still a fair amount of wiggle room for the average household, the trend isn't looking good for the average consumer.</p>
+			</div>
+			<div id="f" hidden>
+				<h2>A Hard Hit</h2>
+				<p>By 2006 the dot com bubble has burst and savvy investors can see that the housing market is next.  The resulting plummet in the average house price is welcome news for buyers, but a disaster for folks who are now underwater on their mortgages.  To add to the problem, even though a variety of factors are working together to bring down the massive spike in the average student loan debt, the cost of college is still on the rise with no end in sight.  Indeed, the general cost of any consumer good (with digital technologies being an exception) are on a steady incline far outpacing wages.</p>
+				<p>While the debt burden of the average household remains financially sound, showing at almost exactly what the experts recommend, these are still the tightest financial conditions Americans have felt in over twenty years.</p>
+			</div>
+			<div id="g" hidden>
+				<h2>A Deceptive Hope?</h2>
+				<p>A general sense of cautious hope can be felt by 2014.  Things aren't roaring, but they do appear to be rounding a corner.  The debt ratio of the average household is slightly better than in 2006.  It isn't much, but American's can at least loosen the belt a little.</p>
+				<p>Or can they?  The cost of college is still on the rise, along with the general inflation of prices.  But wages earned are stagnant at best, and still below the wage increase that laborers in the late 90s enjoyed.  Student loans are settling a little, inflating along the same incline as everything else, but this is largely a result of historically low interest rates and interest rates can only be lowered so much.</p>
+				<p>These lower interest rates have also helped power a surge in house prices again.  This was, of course, the intent (lower montly student loan costs were just a side benefit) and great news for sellers.  Importantly though, it makes buying a home much more difficult, especially for people just entering the workforce who earn well below the national average.</p>
+			</div>
+			<div id="h" hidden>
+				<h2>What Now?</h2>
+				<p>So after a quarter of a century, where to things stand?  Is it really harder for younger generations to purchase a home and take part in the American Dream?   Or do kids these days just like to complain?  Well, the answer isn't exactly simple.</p>
+				<p>Some good news is that the cost of college seems to have stabalized.  While the general trend is still upward, that trend in the last few years has fallen below the general rate of inflation for the first time since 2000.  Student loan costs have also stablized.  Wages too have seen their largest increase since 1999!</p>
+				<p>However, it can't all be sunshine and roses.  While rising wages is definitely a good thing, that rise is only barely keeping up with inflation.  While that's a good thing, the U.S. laborforce is at a 20 year disadvantage where that had not been at all true.  Wages will need to rise much faster if the Americans of today want to enjoy the same buying power their parents had.  Moreover, the persistently low interest rates, which have been laregly responsible for the relatively stable incline of inflation (as opposed to a major spike) are also responsible for a still raging hot housing market.  As a result, the cost of homes still far out paces the rise in wages and general inflation itself.</p>
+				<p>After all is said and done, the numbers do imply that it is harder for younger Americans to buy a home and many of the trends are not working in their favor.</p>
+			</div>
+		</div>
+		
+	</section>
+</body>
+</html>
