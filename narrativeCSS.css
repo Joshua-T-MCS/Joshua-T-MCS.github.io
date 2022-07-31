@@ -1,0 +1,94 @@
+body {
+	font-family: Arial, Helvetica, sans-serif;
+}
+header {
+	background-color: lightblue;
+	padding: 5px;
+	text-align: center;
+	color: Black;
+}
+section {
+	display: -webkit-flex;
+	display: flex;
+	height: 600px;
+	border: thick solid lightblue;
+}
+button {
+	margin: 10px;
+}
+.navbar {
+	background-color: lightgray;
+	padding: 15px;
+	flex: 2 4 150px;
+	max-width: 200px;
+}
+.mynarrative {
+	background-color: rgba(50, 80, 100, 0.5);
+	flex: 4 2 200px;
+	padding: 15px;
+	max-width: 500px;
+}
+.visual-container {
+	display: flex;
+	flex-direction: column;
+	align-items: stretch;
+	flex: 8 1 400px;
+	background-color: white;
+}
+.ticks {
+	display: flex;
+	justify-content: space-between;
+}
+#display-bottom{
+	display: flex;
+}
+#visual-navbar {
+	display: grid;
+	grid-template-columns: auto;
+	padding: 0px;
+	justify-content: center;
+}
+#chart-window {
+	background-color: white;
+	padding: 5px;
+	height: 70vh;
+	width: 650px;
+}
+#tooltip {
+	padding: 5px;
+	height: 70vh;
+	width: 200px;
+	background-color: white;
+}
+#nav-buttons{
+	display: flex;
+	justify-content: center;
+}
+.n-button{
+	background-color: white;
+	color: black;
+	border: 2px solid darkblue;
+	padding: 10px 20px;
+	font-size: 20px;
+	border-radius: 15px;
+}
+.n-button:hover{
+	background-color: lightgray;
+}
+#chart-display {
+	background-color: rgba(20,20,90,0.3);
+	width: 100%;
+	height: 100%;
+}
+#pie-shelf{
+	background-color: rgba(20,20,90,0.3);
+	width: 100%;
+	height: 90%;
+}
+h3{
+	text-align: center;
+}
+#bottom-bar {
+	height: 100%;
+	background-color: rgba(80, 80, 80, .6);
+}
